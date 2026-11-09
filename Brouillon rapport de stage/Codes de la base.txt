@@ -1,0 +1,3 @@
+Attribut méthode : 1 offre 2 demande
+Emploi : 7 valeur 13 volume
+Production : 6 valeur 12 volume

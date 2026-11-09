@@ -1,0 +1,1621 @@
+\documentclass[12pt,a4paper,oneside]{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm,headheight=32pt]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{array,booktabs,longtable}
+\usepackage{caption}
+\usepackage{placeins}
+\captionsetup[figure]{position=top,labelsep=colon}
+\captionsetup[table]{labelsep=colon}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfornament}
+\usepackage[skins,breakable]{tcolorbox}
+\usetikzlibrary{calc,shadows}
+\usepackage{titlesec}
+\usepackage{etoc}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+\definecolor{bleufonce}{HTML}{102F54}
+\definecolor{bleuclair}{HTML}{EFF3F8}
+\definecolor{bleucitation}{HTML}{0066CC}
+
+\newtcolorbox{introductionchapitre}{
+  enhanced,
+  breakable,
+  colback=bleuclair,
+  colframe=bleufonce!35,
+  boxrule=0.5pt,
+  borderline west={2pt}{0pt}{bleufonce},
+  arc=2mm,
+  left=4mm,right=4mm,top=3mm,bottom=3mm,
+  before skip=0pt,after skip=12pt,
+  before upper={\setlength{\parindent}{0pt}}
+}
+
+\newtcolorbox{encadredecharge}{
+  enhanced,
+  colback=white,
+  colframe=bleufonce,
+  boxrule=0.8pt,
+  borderline={0.4pt}{3pt}{bleufonce!35},
+  arc=4mm,
+  drop shadow,
+  left=6mm,right=6mm,top=5mm,bottom=5mm,
+  before skip=6mm,after skip=6mm,
+  fontupper=\itshape,
+  before upper={\setlength{\parindent}{0pt}}
+}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=bleufonce,
+  citecolor=bleufonce,
+  urlcolor=bleufonce,
+  pdftitle={Estimation des services du capital et de la croissance de la productivité multifactorielle au Sénégal},
+  pdfauthor={Anta NDAO}
+}
+
+\newcommand{\theme}{Estimation des services du capital et de la croissance de la productivité multifactorielle au Sénégal}
+\newcommand{\anneeacademique}{Décembre 2026}
+\newcommand{\structureaccueil}{Division de la Comptabilité nationale de l’ANSD}
+\newcommand{\refbleue}[1]{\textcolor{black}{(}\textcolor{bleucitation}{#1}\textcolor{black}{)}}
+
+\setlength{\parindent}{1.25em}
+\setlength{\parskip}{0.4\baselineskip}
+\renewcommand{\baselinestretch}{1.15}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+\pagestyle{fancy}
+\fancyhf{}
+\newsavebox{\boiteentete}
+\fancyhead[L]{%
+  \sbox{\boiteentete}{\small\color{bleufonce}\nouppercase{\leftmark}}%
+  \ifdim\wd\boiteentete>\headwidth
+    \resizebox{\headwidth}{!}{\usebox{\boiteentete}}%
+  \else
+    \usebox{\boiteentete}%
+  \fi}
+\fancyfoot[C]{\color{bleufonce}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\chaptermark}[1]{\markboth{Chapitre \thechapter~: #1}{}}
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyfoot[C]{\color{bleufonce}\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+\titleformat{\chapter}[display]
+  {\fontsize{18}{22}\selectfont\bfseries\color{bleufonce}}
+  {\filleft
+    \begin{tikzpicture}
+      \node[fill=bleufonce,text=white,minimum width=2.8cm,
+        minimum height=2.8cm,inner sep=0pt,
+        font=\normalfont\fontsize{44}{48}\selectfont]
+        (numerochapitre) {\thechapter};
+      \node[rotate=90,anchor=south,text=bleufonce,inner sep=0pt,
+        font=\normalfont\fontsize{16}{19}\selectfont]
+        at ([xshift=-0.15cm]numerochapitre.west) {CHAPITRE};
+    \end{tikzpicture}}
+  {12pt}{\raggedleft\MakeUppercase}
+\titleformat{name=\chapter,numberless}[block]
+  {\fontsize{18}{22}\selectfont\bfseries\color{bleufonce}}{}{0pt}{\raggedright\MakeUppercase}
+  [{\vspace{0.3cm}\color{bleufonce}\titlerule[0.8pt]}]
+\titlespacing*{\chapter}{0pt}{0pt}{24pt}
+\titleformat{\section}
+  {\Large\bfseries\color{bleufonce}\raggedright}
+  {\colorbox{bleufonce}{\color{white}\thesection}}{0.7em}{}
+  [\color{bleufonce}\titlerule]
+\titlespacing*{\section}{0pt}{24pt}{14pt}
+\titleformat{\subsection}
+  {\large\bfseries\color{bleufonce}}{\thesubsection}{0.7em}{}
+
+\newcommand{\rubrique}[1]{%
+  \chapter*{#1}
+  \phantomsection
+  \addcontentsline{toc}{chapter}{#1}
+  \markboth{#1}{}
+}
+
+\addto\captionsfrench{%
+  \renewcommand{\listfigurename}{Liste des graphiques}
+  \renewcommand{\figurename}{Graphique}
+  \renewcommand{\tablename}{Tableau}
+}
+
+\begin{document}
+
+\begin{titlepage}
+\newgeometry{left=2cm,right=2cm,top=2cm,bottom=2cm}
+\begin{tikzpicture}[remember picture,overlay]
+  \draw[bleufonce,line width=8mm]
+    (current page.south west) rectangle (current page.north east);
+\end{tikzpicture}
+\centering
+\setlength{\parskip}{0pt}
+\newcommand{\separateurcouverture}{%
+  \begin{tikzpicture}
+    \draw[bleufonce,line width=0.4pt] (-8,0)--(8,0);
+    \node[fill=white,inner sep=0pt] {\pgfornament[width=11.5cm,color=bleufonce]{88}};
+  \end{tikzpicture}\par
+}
+{République du Sénégal\par}
+\vspace{0.4cm}
+\includegraphics[height=2cm]{assets/armoiries-senegal.png}\par
+\vspace{0.35cm}
+{Ministère de l'Économie, des Finances et du Plan\par}
+\vspace{0.25cm}
+\includegraphics[width=4.5cm]{assets/logo-ministere.jpg}\par
+\vspace{0.35cm}
+{Agence nationale de la Statistique et de la Démographie\par}
+\vspace{0.35cm}
+\includegraphics[height=1.6cm]{assets/logo-ansd-isecl.png}\par
+\vspace{0.5cm}
+{École nationale de la Statistique et de l'Analyse économique Pierre NDIAYE\par}
+\vspace{0.3cm}
+\includegraphics[height=1.4cm]{assets/logo-ensae-isecl.png}\par
+\vspace{0.4cm}
+\begin{tikzpicture}
+  \node[fill=bleufonce,text=white,rounded corners=3pt,
+    inner xsep=0.2cm,inner ysep=0.12cm] {\small\bfseries RAPPORT DE STAGE};
+\end{tikzpicture}\par
+\vspace{0.35cm}
+\separateurcouverture
+\vspace{0.35cm}
+{\fontsize{18}{22}\selectfont\bfseries\color{bleufonce}\MakeUppercase{\theme}\par}
+\vspace{0.35cm}
+\separateurcouverture
+\vspace{0.2cm}
+\begingroup
+\fontsize{14}{17}\selectfont
+{\color{bleufonce}Rédigé par :\par}
+\vspace{0.4cm}
+{\bfseries Anta NDAO\par}
+\vspace{0.25cm}
+{\itshape Élève ingénieure statisticienne économiste en première année en cycle long\par}
+\vspace{0.35cm}
+{\color{bleufonce}Maître de stage :\par}
+\vspace{0.35cm}
+{\bfseries M. Abdou TINE\par}
+\vspace{0.25cm}
+{\itshape Ingénieur Statisticien Économiste\par}
+\vfill
+\begin{tikzpicture}
+  \node[draw=bleufonce,fill=bleuclair,text=bleufonce,
+    line width=0.8pt,rounded corners=3pt,
+    inner xsep=0.7cm,inner ysep=0.3cm]
+    {\bfseries\anneeacademique};
+\end{tikzpicture}\par
+\endgroup
+\end{titlepage}
+\restoregeometry
+
+\pagenumbering{roman}
+\setcounter{page}{2}
+
+\begin{titlepage}
+\newgeometry{left=2.2cm,right=2.2cm,top=2cm,bottom=1.8cm}
+\thispagestyle{empty}
+\setcounter{page}{2}
+
+\begin{tikzpicture}[remember picture,overlay]
+  \draw[bleufonce,line width=0.8pt]
+    ([xshift=2.2cm,yshift=-1.5cm]current page.north west)--
+    ([xshift=-2.2cm,yshift=-1.5cm]current page.north east);
+  \draw[bleufonce,line width=0.8pt]
+    ([xshift=2.2cm,yshift=1.45cm]current page.south west)--
+    ([xshift=-2.2cm,yshift=1.45cm]current page.south east);
+\end{tikzpicture}
+
+\begin{center}
+{\small\bfseries\color{bleufonce}\MakeUppercase{Rapport de stage d’immersion}}\par
+\vspace{0.35cm}
+{\color{bleucitation}\rule{1.3cm}{1.2pt}\hspace{2mm}
+\raisebox{-0.8mm}{\rotatebox{45}{\rule{3.5mm}{3.5mm}}}\hspace{2mm}
+\rule{1.3cm}{1.2pt}}\par
+
+\vspace{2.1cm}
+{\fontsize{19}{24}\selectfont\bfseries\color{bleufonce}
+ESTIMATION DES SERVICES DU CAPITAL\par
+ET DE LA CROISSANCE DE LA\par
+PRODUCTIVITÉ MULTIFACTORIELLE AU SÉNÉGAL\par}
+\vspace{0.65cm}
+{\color{bleucitation}\rule{3.2cm}{1.2pt}}\par
+\end{center}
+
+\vspace{2cm}
+
+\noindent
+\begin{minipage}[t]{0.47\textwidth}
+  \raggedright
+  {\footnotesize\color{bleucitation}\MakeUppercase{Rédigé par}}\par
+  \vspace{2mm}
+  {\Large\bfseries\color{bleufonce}Anta NDAO}\par
+  \vspace{1mm}
+  {\small\itshape Élève ingénieure statisticienne économiste en troisième année du cycle long à l’ENSAE}
+\end{minipage}
+\hfill
+{\color{bleufonce!25}\vrule width 0.5pt}
+\hfill
+\begin{minipage}[t]{0.47\textwidth}
+  \raggedleft
+  {\footnotesize\color{bleucitation}\MakeUppercase{Sous l’encadrement de}}\par
+  \vspace{2mm}
+  {\Large\bfseries\color{bleufonce}M. Abdou TINE}\par
+  \vspace{1mm}
+  {\small\itshape Ingénieur Statisticien Économiste}
+\end{minipage}
+
+\vspace{2.1cm}
+
+\begin{center}
+{\footnotesize\color{bleucitation}\MakeUppercase{Structure d’accueil}}\par
+\vspace{3mm}
+{\normalsize\bfseries\color{bleufonce}Agence nationale de la Statistique et de la Démographie (ANSD)}\par
+\vspace{1.5mm}
+{\normalsize Direction des Statistiques économiques et de la Comptabilité nationale (DSECN)}\par
+\vspace{1.5mm}
+{\normalsize Division de la Comptabilité nationale (DCN)}\par
+\vspace{1.5mm}
+{\normalsize Bureau des Comptes annuels et sectoriels (BCAS)}
+\end{center}
+
+\vfill
+
+\noindent
+\begin{minipage}[b]{0.82\textwidth}
+  {\small\bfseries\color{bleufonce}ENSAE}\par
+  {\footnotesize École nationale de la Statistique et de l’Analyse économique Pierre NDIAYE}
+\end{minipage}%
+\begin{minipage}[b]{0.18\textwidth}
+  \raggedleft
+  {\color{bleufonce}\thepage}
+\end{minipage}
+
+\end{titlepage}
+\restoregeometry
+\setcounter{page}{3}
+
+\rubrique{Décharge}
+
+\begin{encadredecharge}
+L’École nationale de la Statistique et de l’Analyse économique Pierre NDIAYE (ENSAE) n’entend donner aucune approbation ni improbation aux opinions émises dans ce rapport. Ces opinions doivent être considérées comme propres à l’auteure, qui en assume l’entière responsabilité. Elles n’engagent ni l’ENSAE ni l’Agence nationale de la Statistique et de la Démographie (ANSD).
+\end{encadredecharge}
+
+
+\rubrique{Remerciements}
+
+À l’issue de cette belle aventure aux côtés des comptables nationaux, nous tenons à exprimer notre profonde gratitude à tous ceux qui, de près ou de loin, ont contribué à l’accomplissement de ce travail.
+
+Qu’il nous soit permis de remercier l’ensemble du personnel de l’Agence nationale de la Statistique et de la Démographie, et en particulier, Dr Abdou DIOUF, Directeur général de l’ANSD, pour nous avoir généreusement accueillis au sein de sa prestigieuse institution. Nos remerciements s’adressent également à M. Malick DIOP, chef de la Division de la Comptabilité nationale (DCN), au sein de laquelle nous avons effectué notre stage, ainsi qu’à Mme Ndeye Khoudia Laye SEYE, cheffe du Bureau des Comptes annuels et sectoriels (BCAS), pour leur accueil chaleureux et leurs précieux enseignements. Nous adressons également nos remerciements à M. Abdou TINE pour son encadrement attentif et à M. Ismaila DIALLO pour ses brillantes contributions. Nous remercions également l’ensemble des agents de la Division pour leur accessibilité, leur disponibilité et leur appui constant tout au long du stage.
+
+Nous tenons également à exprimer notre reconnaissance à Dr Idrissa DIAGNE, Directeur de l’ENSAE, à Dr Mamadou BALDÉ, Directeur des Études et des Stages, à M. Thierno Ibrahima BARRY, responsable de la filière ISE, ainsi qu’à l’ensemble du corps professoral pour leur soutien institutionnel. Mention spéciale à Mme Fatou Laye MBAYE, Mme Garmy SAMB et Mme Ngoné MBAYE, agentes de la DCN, qui ont fait de ce stage une expérience unique à travers leur accueil chaleureux, leur bienveillance et leur soutien.
+
+Enfin, nous témoignons notre profonde gratitude à nos camarades de classe, à nos aînés ainsi qu’à nos cadets académiques pour leurs critiques constructives et le temps précieux qu’ils ont consacré à la relecture de ce document. Notre reconnaissance s’étend à toutes les personnes, nommément citées ou non, qui ont bien voulu apporter leur contribution à ce rapport. Qu’elles trouvent ici le témoignage de notre profonde gratitude.
+
+
+
+\rubrique{Avant-propos}
+
+Créée en 2008, l'École nationale de la Statistique et de l'Analyse économique Pierre
+Ndiaye (ENSAE) est une institution à vocation régionale, à l’image des autres écoles du Réseau
+des écoles de statistique africaines (RESA). Depuis la rénovation pédagogique de 2020,
+l’offre de formation via concours s’y décline en deux filières~: Analyste statisticien (AS) et
+Ingénieur statisticien économiste (ISE). Cette dernière filière, de niveau master, s’étend sur trois
+ans (cycle court) pour les étudiants entrant avec un diplôme de licence ou après deux années en
+classes préparatoires scientifiques. Elle peut également être suivie sur cinq ans (cycle long)
+pour ceux entrant directement après le baccalauréat.
+
+Les ISE développent la capacité à étudier et résoudre des problèmes complexes en mobilisant
+des connaissances scientifiques, notamment en mathématiques, statistiques, économie et
+finance. Ils acquièrent également des compétences en gestion d'équipe, leadership, management
+de projets et ouverture culturelle, afin de s'intégrer dans des organisations et de les faire
+évoluer.
+
+À la fin de la deuxième année du cycle long, les élèves ISE effectuent un stage d’immersion de
+deux mois. Ce stage leur permet de mettre en pratique les connaissances acquises et de se
+familiariser avec les outils statistiques, en même temps qu’ils découvrent les réalités du monde
+professionnel.
+
+Le présent rapport s’inscrit dans ce cadre. Il sanctionne la fin d’un stage réalisé à la Division de
+la Comptabilité nationale (DCN) du 12 août au 2 octobre 2026 et sera soutenu devant un
+jury. Le thème de l’étude est~: \theme.
+
+\rubrique{Sommaire}
+\begingroup
+\renewcommand{\baselinestretch}{1}
+\small
+\setlength{\parskip}{0pt}
+\etocsetnexttocdepth{chapter}
+\etocsettocstyle{}{}
+\tableofcontents
+\endgroup
+
+\rubrique{Liste des sigles et acronymes}
+
+\begingroup
+\small
+\setlength{\parskip}{0pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{longtable}{@{}p{0.15\textwidth}@{\hspace{0.03\textwidth}}p{0.78\textwidth}@{}}
+\toprule
+Sigle & Signification \\
+\midrule
+\endhead
+ANSD & Agence nationale de la Statistique et de la Démographie \\
+AS & Analyste statisticien \\
+BAD & Banque africaine de développement \\
+BCAS & Bureau des Comptes annuels et sectoriels \\
+BCE & Banque centrale européenne \\
+BCEAO & Banque centrale des États de l’Afrique de l’Ouest \\
+BCTR & Bureau des Comptes trimestriels et régionaux \\
+CCF & Consommation de Capital fixe \\
+DCN & Division de la Comptabilité nationale \\
+DPEE & Direction de la Prévision et des Études économiques \\
+DSECN & Direction des Statistiques économiques et de la Comptabilité nationale \\
+EBE & Excédent brut d’exploitation \\
+EERH & Enquête sur l’emploi, la rémunération et les heures de travail \\
+ENSAE & École nationale de la Statistique et de l’Analyse économique \\
+FBCF & Formation brute de Capital fixe \\
+FCFA & Franc de la Communauté financière africaine \\
+FMI & Fonds monétaire international \\
+ISE & Ingénieur statisticien économiste \\
+MEFP & Ministère de l’Économie, des Finances et du Plan \\
+OCDE & Organisation de Coopération et de Développement économiques \\
+OIT & Organisation internationale du Travail \\
+PIB & Produit intérieur brut \\
+PMF & Productivité multifactorielle \\
+PSE & Plan Sénégal émergent \\
+R\&D & Recherche et développement \\
+RESA & Réseau des écoles de statistique africaines \\
+SCN & Système de comptabilité nationale \\
+TCEI & Tableau des comptes économiques intégrés \\
+TIC & Technologies de l’information et de la communication \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Liste des graphiques}
+\listoffigures
+\markboth{Liste des graphiques}{}
+
+\vspace{0.8cm}
+\phantomsection
+\addcontentsline{toc}{chapter}{Liste des tableaux}
+\begingroup
+\let\clearpage\relax
+\listoftables
+\endgroup
+\markboth{Liste des tableaux}{}
+
+\rubrique{Résumé}
+
+Cette étude vise à estimer les services du capital et la croissance de la productivité multifactorielle au Sénégal. Grâce à des séries de données sur la FBCF et le travail allant de 2015 à 2021, des indices de volume des stocks nets et des services du capital ont été construits sur la base de la méthodologie de mesure du capital présentée par l’OCDE. La croissance de la PMF a ainsi été estimée à l’aide des indices de volume des services du travail et du capital. Les résultats obtenus montrent que la croissance des stocks nets et des services du capital s’est progressivement accélérée au fil des années. De plus, la croissance de la PMF est restée négative sur toute la période considérée, ce qui indique une diminution annuelle de l'efficacité combinée des facteurs de production. Enfin, la croissance est principalement portée par l’intrant capital, qui contribue à plus de 4 points de pourcentage, tandis que la PMF tend à la ralentir.
+
+Mots-clés~: actifs, capital, service du capital, stock de capital, PMF.
+
+\rubrique{Abstract}
+
+This study aims to estimate capital services and multifactor productivity (MFP) growth in Senegal. Using data series on gross fixed capital formation (GFCF) and labour covering 2015--2021, volume indices for net capital stocks and capital services were constructed using the capital measurement methodology developed by the Organisation for Economic Co-operation and Development (OECD). MFP growth was then estimated using the volume indices of labour and capital services. The results show that growth in net capital stocks and capital services accelerated progressively over the years. In addition, MFP growth remained negative throughout the period under review, indicating an annual decline in the combined efficiency of the factors of production. Finally, economic growth was driven mainly by the capital input, which contributed more than 4 percentage points, while MFP growth tended to dampen it.
+
+Keywords: assets, capital, capital services, capital stock, multifactor productivity.
+
+\clearpage
+\pagenumbering{arabic}
+\rubrique{Introduction}
+\begingroup
+\setlength{\parskip}{0.15\baselineskip}
+
+L’accumulation du capital est l’un des principaux déterminants de la croissance économique sénégalaise. En
+effet, la formation brute de capital fixe (FBCF) a progressivement augmenté au cours des années,
+s’établissant à 34\% en 2021 \refbleue{ANSD, Comptes nationaux semi-définitifs de 2022 et définitifs de 2021}. Cette
+croissance est largement portée par sa composante privée, qui représentait à elle seule 25,7\% du PIB en 2021.
+D’après le FMI\footnote{Senegal: Selected Issues, IMF Country Report No. 22/9}, sur les dix années ayant
+précédé la pandémie de Covid-19, la formation brute de capital fixe a presque doublé en part de la production,
+atteignant plus de 30\% du PIB en 2019, avec une prépondérance marquée de l’investissement privé par rapport à l’investissement
+public. De plus, entre 2014 et 2019, pour une croissance moyenne du PIB de 5,9\%, le stock net de capital
+a contribué à hauteur de trois (3) points de pourcentage, soit un peu plus de 50\% de la croissance. Ces chiffres
+traduisent essentiellement un bond en termes d’utilisation de facteurs de production.
+
+Même si l’accumulation du capital apparaît comme un moteur majeur de la croissance, elle ne permet pas, en
+réalité, de mesurer l’apport réel du capital. En comptabilité de la croissance, l’intrant capital utilisé comme
+variable de la fonction de production est souvent appréhendé à travers le stock de capital. Toutefois, la
+théorie économique de la production \refbleue{Varian, 2006} montre que la mesure la plus juste de l’apport du capital
+dans la production est l’utilisation des services du capital, c’est-à-dire les flux de services productifs
+fournis par le capital utilisé dans la production. Cela est tout à fait logique, car les biens
+d’investissement dans le processus de production sont utilisés pour les services qu’ils fournissent et non
+pour leur simple accumulation. Jorgenson \refbleue{1963} précise d’ailleurs, en ce sens, que le capital est accumulé
+afin de fournir des services du capital.
+
+Une mesure appropriée du capital est primordiale, car elle influence directement celle de la contribution du
+capital dans la croissance et celle de la productivité multifactorielle. Des études menées par Schreyer \refbleue{2003}
+montrent que l’utilisation du stock net comme mesure du capital au lieu des services productifs conduit, en
+général, à une surestimation de la croissance de la productivité multifactorielle (ou productivité globale des facteurs) et à une sous-estimation de
+la contribution du capital à la croissance économique. De tels biais pourraient avoir de sévères
+répercussions sur les politiques économiques car ils pourraient conduire les autorités publiques à conclure
+que la croissance vient surtout de la PMF et donc sous-estimer l’importance des politiques d’investissement
+alors que le capital contribue plus qu’elles ne le croient.
+
+Dès lors, une question centrale émerge~: comment estimer les services du capital au Sénégal afin de disposer
+d’une mesure appropriée de l’apport du capital et de la productivité multifactorielle~?
+
+L’objectif général de cette étude est ainsi d’estimer les services du capital et la croissance de la productivité multifactorielle au Sénégal de 2016 à 2021. Plus
+spécifiquement, ce travail vise à~:
+
+\begin{itemize}
+
+\item estimer les stocks de capital net et productif ;
+
+\item estimer les indices de volume des services du capital entre 2016 et 2021 ;
+
+\item estimer les services du travail~;
+
+\item estimer la croissance de la productivité multifactorielle résultant de la croissance économique.
+
+\end{itemize}
+
+Ce travail s’effectuera sous les hypothèses suivantes~:
+
+\begin{itemize}
+
+\item H1 : Le processus de production peut être représenté par une fonction de production reliant la
+production maximale réalisable à l’ensemble des intrants disponibles~;
+
+\item H2 : Les producteurs sont rationnels~;
+
+\item H3 : Les marchés sont concurrentiels~;
+
+\item H4 : Les rendements d’échelle sont constants.
+
+\end{itemize}
+
+Le présent rapport sera structuré en quatre chapitres. Le premier chapitre
+présente, d’une part, la structure d’accueil, l’Agence nationale de la Statistique et de la Démographie
+(ANSD), en détaillant ses missions et son organisation et, d’autre part, la Division de la Comptabilité
+nationale (DCN). Il inclut également un bilan des activités réalisées durant le stage. Le deuxième chapitre
+est consacré au cadre conceptuel et à la revue de la littérature. Le troisième chapitre présente les données
+utilisées pour l’étude, la classification des actifs, la méthodologie d’estimation des services du capital et
+du travail ainsi que la croissance de la productivité multifactorielle. Le dernier chapitre est réservé à la présentation des
+résultats obtenus à l’issue de l’étude.
+
+\par
+\endgroup
+
+\chapter{Présentation de la structure d'accueil et bilan des activités}
+
+\begin{introductionchapitre}
+Cette partie est dédiée à la présentation de la structure d’accueil du stage, l’ANSD, en détaillant son
+organisation et son rôle au sein du système statistique sénégalais. Elle montre également les missions
+spécifiques de la DCN, où le stage a été effectué. Enfin, un bilan de stage est dressé, permettant de faire le
+point sur les activités réalisées et les compétences acquises.
+\end{introductionchapitre}
+
+\section{Présentation de la structure d'accueil}
+
+\subsection{Historique et mission de l’ANSD}
+
+Créée en 2004 par la loi n\textsuperscript{o}~2004-21 du 21 juillet 2004, l’ANSD est une structure
+administrative dotée de la personnalité juridique et d’une autonomie de gestion. Elle est placée sous la
+tutelle du ministre chargé de la statistique et gouvernée par un conseil de surveillance, composé de
+représentants de la Primature, du ministère de l’Économie, des Finances et du Plan (MEFP), de la Banque
+centrale, d’organisations patronales et syndicales ainsi que de centres de recherche.
+
+Les principales missions de l’ANSD sont~:
+
+\begin{itemize}
+
+\item veiller à l’élaboration et à la mise en œuvre des programmes statistiques pluriannuels et annuels ;
+
+\item assurer l’application des méthodes, normes et classifications approuvées par le Comité technique des
+programmes statistiques ;
+
+\item préparer et soumettre des dossiers aux réunions du Conseil national de la statistique ;
+
+\item organiser les réunions du Conseil national de la statistique et de ses sous-comités ;
+
+\item réaliser des enquêtes à couverture nationale, y compris les recensements généraux ;
+
+\item produire les comptes nationaux et suivre la conjoncture économique ;
+
+\item élaborer et gérer les fichiers des entreprises et des localités ;
+
+\item produire des indicateurs économiques, sociaux et démographiques ;
+
+\item centraliser et diffuser les données statistiques nationales ;
+
+\item promouvoir la formation spécialisée dans le domaine statistique.
+
+\end{itemize}
+
+L’Agence est en outre chargée du suivi de la coopération technique internationale en matière statistique. À ce
+titre, elle représente le Sénégal dans les réunions sous-régionales, régionales et internationales relatives
+aux questions relevant de sa compétence et suit les activités des organisations internationales en ce qui
+concerne les questions statistiques. L’agence peut entreprendre, à la demande du gouvernement et des
+administrations publiques et privées, des études et recherches sur les questions statistiques, économiques et
+sociales à titre onéreux ou gracieux dans les conditions définies par le conseil d’orientation. De tels
+travaux donnent lieu à la signature de contrats de service ou de protocoles d’accord entre l’Agence, le
+commanditaire de tels travaux, et éventuellement les bailleurs de fonds.
+
+\subsection{Présentation des directions}
+
+Placée sous la tutelle du ministère de l’Économie, des Finances et du Plan (MEFP), l’ANSD est administrée
+par un conseil de surveillance (CS). Elle est également une composante du système statistique national (SSN),
+qui comprend le Conseil national de la statistique (CNS) et les services statistiques situés au sein des
+départements ministériels et des organismes publics et parapublics. L’Agence est dirigée par un directeur
+général qui est assisté par un directeur général adjoint, nommés tous deux par décret sur proposition du
+conseil d’orientation. En dehors de la direction générale, composée du directeur général et de son adjoint, des
+conseillers techniques, de l’auditeur interne, de la cellule du contrôle de gestion, du conseiller à l’action
+statistique régionale, de la cellule de passation de marchés, de la cellule de communication, de la cellule
+juridique, du service de sécurité, du service médical et des secrétariats du directeur général et de son
+adjoint, l’ANSD est composée de services centraux et régionaux et est organisée en directions,
+cellules, divisions, bureaux et services.
+
+\subsection{Les services centraux}
+
+Au niveau central, l’ANSD compte sept (7) directions placées sous l’autorité du Directeur général
+adjoint, ainsi que la Cellule de gestion des partenariats (CGP) et l'Agence comptable (AC) :
+
+\begin{itemize}
+
+\item Direction des Statistiques économiques et de la Comptabilité nationale (DSECN)~: chargée de l’élaboration des statistiques économiques et conjoncturelles, ainsi que de la production des
+comptes nationaux annuels et trimestriels ;
+
+\item Direction des Statistiques démographiques et sociales (DSDS)~: chargée de la conception, de l’exécution et de l’analyse des enquêtes et recensements démographiques, ainsi
+que des enquêtes socioéconomiques auprès des ménages ;
+
+\item Direction de la Méthodologie, de la Coordination statistique et de l’Innovation (DMCI)~: chargée d’harmoniser les concepts, nomenclatures et classifications utilisés à l’ANSD et au sein du Système
+statistique national ;
+
+\item Direction des Systèmes d’Information et de la Diffusion (DSID)~: a pour mission d’assurer la mise à disposition d’un système d’information efficient et de gérer la diffusion
+des produits de l’Agence ;
+
+\item Direction de l’Administration générale et des Ressources humaines (DAGRH)~: en charge de la gestion du personnel, des compétences, de la logistique, du matériel, de la sécurité et de
+l’approvisionnement de l’Agence ;
+
+\item Direction de l’École nationale de la Statistique et de l’Analyse économique Pierre NDIAYE (ENSAE)~: a pour mission d’assurer la formation initiale et continue des statisticiens pour les différentes composantes
+du SSN (administrations publiques, organismes parapublics et secteur privé) ;
+
+\item Direction de l'Action régionale (DAR)~: coordonne les Services régionaux de la Statistique et de la Démographie (SRSD) qui assurent les activités déconcentrées de l’ANSD dans chaque région administrative du Sénégal ;
+
+\item Agence comptable (AC)~: assure la gestion financière, tient la comptabilité des deniers de l’Agence et veille à la disponibilité d’une
+information financière fiable et régulière ;
+
+\item Cellule de gestion des partenariats (CGP)~: coordonne la mise en œuvre et le suivi des conventions de partenariats, développe les prestations à frais
+recouvrables et assure les démarches de prospection auprès des clients potentiels.
+
+\end{itemize}
+
+
+\subsection{Présentation de la DCN}
+
+La Division de la Comptabilité nationale, la Division des Statistiques économiques et la Division des
+Statistiques conjoncturelles sont les trois divisions de la DSECN.
+
+La DCN produit et analyse l'ensemble des comptes nationaux en synthétisant les statistiques et indicateurs que
+produisent les autres unités de l'ANSD ou les organismes extérieurs compétents. Elle élabore les tableaux de
+synthèse des comptes nationaux (comptes de production, tableau des ressources-emplois, comptes de secteurs
+institutionnels, etc.). Elle contribue également à l'élaboration des comptes nationaux sectoriels et
+satellites. Les services de la Division de la Comptabilité nationale participent à l’établissement des budgets
+économiques conduits par la Direction de la Prévision et des Études économiques (DPEE) du MEFP. Par ailleurs, comme principaux utilisateurs des résultats des enquêtes, ils participent à la
+validation des questionnaires élaborés au sein de l’ANSD et travaillent aussi en étroite collaboration avec
+les services de la Douane, de la Comptabilité publique et de la Banque centrale des États de l’Afrique de
+l’Ouest (BCEAO). La Division réalise des études et analyses à caractère macroéconomique ou thématique.
+
+Elle compte deux bureaux, présentés ci-après~:
+
+\begin{itemize}
+
+\item le Bureau des Comptes annuels et sectoriels (BCAS) qui traite les données relatives aux secteurs de l'agriculture, de l’industrie, du commerce, des autres services et
+du secteur informel, en vue d’établir les comptes nationaux. Il établit les comptes de production par secteur
+et les équilibres ressources-emplois des produits concernés. Il établit les comptes des administrations
+publiques (administrations publiques centrales, collectivités locales, organismes divers d’administration
+publique, organismes de sécurité sociale) et privées (entreprises, ONG, associations, etc.). Il suit également l’établissement de la balance des paiements courants et est chargé d’établir
+les tableaux de synthèses économiques conformément au Système de comptabilité nationale (SCN) en vigueur. À
+cet égard, il établit la synthèse des comptes de production par secteur et des équilibres ressources-emplois.
+Il élabore le Tableau des Ressources et Emplois (TRE) à prix courants et à prix constants ainsi que le Tableau
+des Comptes économiques intégrés (TCEI). Il assure l'application des normes internationales en matière de
+comptabilité nationale auxquelles le Sénégal a souscrit.
+
+\item le Bureau des Comptes trimestriels et régionaux (BCTR) appuie les services de comptabilité nationale dans la définition des méthodologies, contribue à l’élaboration
+des tableaux de synthèse des comptes nationaux et élabore les comptes nationaux trimestriels et les comptes
+régionaux. Par ailleurs, il réalise des études et analyses approfondies à caractère macroéconomique ou
+thématiques, en collaboration avec les services compétents de l'ANSD.
+
+\end{itemize}
+
+\section{Bilan des activités réalisées}
+
+Le stage d’un mois et 22 jours effectué à la Division de la Comptabilité nationale a été une immersion enrichissante. Dès notre première semaine, nous avons reçu une documentation sur la comptabilité nationale afin de nous familiariser avec les concepts et les méthodes en vigueur. Les premiers jours du stage ont ainsi été une période d’apprentissage des bases de la comptabilité nationale et du processus d’élaboration des comptes.
+
+Lors de notre deuxième semaine, nous avons eu l’occasion de participer à un atelier d’élaboration des comptes satellites de l’économie. Étant donné que les comptes nationaux ne font pas de distinction entre ce qui provient du numérique et ce qui n’en provient pas, l’objectif de cet atelier était d’élaborer un tableau des ressources et des emplois (TRE) permettant de savoir comment la richesse est créée, distribuée et utilisée dans l’économie numérique. Le PIB du numérique devait ainsi être obtenu à partir de ce TRE. Notre contribution à ce travail a consisté à reclasser les entreprises travaillant dans la publicité en ligne à partir des données de la Banque de données économiques et financières (BDEF).
+
+Nous avons également participé aux phases de préarbitrage, de première décentralisation et de travaux sur les opérations dans le cadre de l’élaboration des comptes de 2025. Le préarbitrage est une phase de vérification des données fournies par les différentes sources, à savoir la BDEF, les déclarations statistiques et fiscales, les administrations publiques, etc. Il correspond à l’une des étapes préliminaires de l’élaboration des comptes. Après cette phase vient celle de la première décentralisation, au cours de laquelle il est question d’équilibrer les ressources (production, importations, impôts et taxes) et les emplois (consommation finale, consommation intermédiaire, FBCF, exportations, variations de stocks et acquisition nette d’objets de valeur) pour chaque produit. Les travaux sur les opérations correspondent, quant à eux, à une étape de vérification des erreurs commises dans les équilibres ressources-emplois (ERE) et de projection des demandes de consommation intermédiaire à partir des indices de prix. En dehors de l’élaboration des comptes de 2025, nous avons aussi corédigé un compte rendu pour l’une des réunions de division qui se tenaient toutes les deux semaines.
+
+L’ensemble de ces activités nous a permis de mieux comprendre comment les différents agrégats macroéconomiques de notre pays sont mesurés et de mettre en pratique les connaissances théoriques que nous avions acquises à l’école.
+
+
+\chapter{Cadre conceptuel et revue de littérature}
+
+\begin{introductionchapitre}
+Ce chapitre a pour objectif d’établir le cadre conceptuel de la présente étude et de passer en revue les
+théories qui ont été formulées et les travaux empiriques qui ont été menés en rapport avec le sujet.
+\end{introductionchapitre}
+
+\section{Cadre conceptuel}
+
+\subsection{Le capital}
+
+Dans la conception d’Adam Smith\footnote{Adam SMITH, Recherches sur la nature et les causes de la richesse des
+nations, Londres~: Strahan et Cadell, 1776, p. 363.}, le capital est la partie du fonds accumulé par un
+individu qui suffit à le faire vivre pendant des mois ou des années et dont il espère tirer un revenu. Cette
+définition lui permet de distinguer deux catégories de capitaux, à savoir~: les capitaux fixes et les capitaux
+circulants. Le capital qui ne peut rapporter du revenu à son propriétaire tant que celui-ci l’a encore en sa
+possession ou tant qu’il garde la même forme est rangé dans la catégorie des capitaux circulants d’après
+Smith. Il s’agit, par exemple, des marchandises d’un commerçant, des produits d’une industrie manufacturière,
+entre autres. Les capitaux fixes, quant à eux, sont ceux qui peuvent donner un revenu ou un profit sans avoir
+à changer de propriétaire ni à circuler davantage. Ce sont, entre autres, les machines utilisées par les
+industries ou les outils utilisés par un individu pour travailler.
+
+Karl Marx\footnote{Karl Marx, Le Capital. Critique de l’économie politique. Livre premier~: Le procès de
+production du capital, Paris, Éditions sociales, 1867, p. 165--198.}, bien que rejoignant Smith dans une
+certaine mesure, voit le capital d’une autre manière. Selon lui, la monnaie est le point de départ d’un
+processus d’achat et de revente de marchandises dont l’aboutissement est la formation de capital. Le capital ne
+serait que de la valeur qui se valorise elle-même grâce à l’achat et à l’exploitation d’une marchandise
+«~spéciale~» qui n’est autre que la force de travail. De là, deux composantes du capital
+émergent\footnote{Karl Marx, Le Capital. Critique de l’économie politique. Livre premier~: Le procès de
+production du capital, Paris, Éditions sociales, 1867, p. 224--236.}. Marx distingue, d’une part, le capital
+constant, qui représente la partie du capital qui se convertit en moyens de production et, d’autre part, le
+capital variable, qui se convertit en force de travail. L’objectif du capitaliste est ainsi de combiner des
+moyens de production et de la force de travail qu’il achète grâce à la valeur monétaire qu’il détient au
+départ et qui constitue son capital initial afin de créer de la valeur.
+
+Même si les définitions de ces deux économistes semblent s’accorder sur le fait que le capital est une valeur
+destinée à générer un surplus de revenu, leurs analyses s’inscrivent dans des perspectives différentes.
+Alors que Smith voit les avantages tirés du capital comme une rémunération de l’accumulation du capital
+(qu’il considère comme l’un des moteurs essentiels de l’enrichissement d’une nation), Marx, lui, dans une
+logique de critique de l’idéologie capitaliste, considère que le surplus généré résulte de l’appropriation par
+le capitaliste d’une partie de la valeur créée par le travail des ouvriers et non rémunérée.
+
+En dehors de Marx et Smith, beaucoup d’autres économistes ont tenté de donner une définition du capital, mais
+des divergences subsistent sur sa nature exacte et sur la manière dont il devrait être mesuré.
+En tant qu’intrant essentiel du processus de production, la mesure du capital revêt une importance cruciale
+dans la mesure de la richesse d’une économie donnée et dans l’analyse du rôle du capital dans la croissance économique.
+
+\subsection{Les actifs}
+
+Tel qu’il est défini dans le SCN 2025, un actif est une «~réserve de valeur représentant un avantage ou une
+série d’avantages revenant au propriétaire économique du fait de la détention ou de l’utilisation d’un bien
+pendant une période déterminée~». Il permet de transférer une valeur d’une période comptable à une autre. Il
+existe quatre principales catégories d’actifs, selon le SCN 2025~: les actifs non financiers produits, les
+actifs non financiers non produits, les actifs financiers et le capital naturel.
+
+Les actifs non financiers produits, provenant soit du processus de production, soit des importations, sont
+divisés en trois catégories selon le SCN 2025~:
+
+\begin{itemize}
+
+\item Les actifs fixes ou immobilisations~: ils sont définis comme étant des actifs produits
+utilisés de façon répétée ou continue dans la production pendant plus d’un an. Il s’agit notamment des
+habitations et autres bâtiments et structures, des machines et équipements, des droits de propriété
+intellectuelle, etc.
+
+\item Les stocks~: ils correspondent aux matières premières et fournitures, aux travaux en cours, aux produits
+finis, aux stocks militaires et aux biens destinés à la revente~;
+
+\item Les objets de valeur~: ils sont constitués des pierres et métaux précieux, des antiquités et autres
+objets d’art et des autres objets de valeur. Ces types d’actifs sont détenus principalement comme réserve de
+valeur et non pour produire ou pour consommer.
+
+\end{itemize}
+
+Il existe trois types d’actifs non financiers non produits~: les contrats, baux et licences, les crypto-actifs
+utilisés comme moyens d’échange mais qui ne constituent pas une créance sur un autre agent et les achats de
+fonds commerciaux et d’autres actifs. Quant aux actifs financiers, ils apparaissent lorsqu’il doit y avoir un
+paiement entre deux unités. Ils cessent ainsi d’exister lorsqu’il n’y a plus d’engagement entre les deux
+unités. Enfin, le capital naturel est constitué des ressources naturelles, notamment la
+terre, les ressources minérales et énergétiques, les ressources renouvelables et non renouvelables, etc.
+
+En lien avec le capital abordé ci-dessus, le capital fixe est défini comme la valeur des actifs fixes
+disponibles et utilisés à des fins de production à une date donnée \refbleue{SCN 2025}. Ainsi, lorsque le concept de
+formation brute de capital fixe est mentionné, il faut entendre par là la valeur totale des acquisitions,
+diminuée des cessions, d’actifs fixes effectuées par les producteurs au cours de la période comptable,
+augmentée de certaines dépenses spécifiées qui accroissent la valeur d’actifs non produits, selon le SCN 2025.
+
+\subsection{Le stock de capital}
+
+Le capital peut être mesuré du point de vue des flux et du point de vue des stocks, les flux étant représentés
+par les services du capital. D’après la Banque centrale européenne (BCE), le stock de capital est défini comme
+étant la valeur de tous les actifs fixes encore en usage, où les actifs fixes sont décrits comme des actifs
+produits (c’est-à-dire en excluant les terrains) utilisés dans le processus de production pendant plus d’un
+an. Le manuel de l’OCDE définit trois catégories de stock de capital~:
+
+\begin{itemize}
+
+\item Le stock brut~: il est mesuré en cumulant la formation brute de
+capital fixe (FBCF) année après année et en déduisant les sorties. Par sorties, il faut entendre les mises hors service~;
+
+\item Le stock net~: il est égal à la valeur, à un instant donné, des actifs valorisés aux prix courants du même type, diminuée de la valeur cumulée de la consommation de capital fixe jusqu’à cet instant. Il est
+également considéré comme le «~stock de richesse~» d’une économie donnée~;
+
+\item Le stock productif~: il s’agit de la valeur cumulée des flux d’investissement passés corrigés des mises
+hors service et de la perte d’efficacité productive.
+
+\end{itemize}
+
+Le stock de capital est un indicateur important du niveau et du potentiel de développement économique d’un
+pays ou d’une région \refbleue{Zhang et al., 2025}. Il est mesuré à partir des données fournies par les comptes
+nationaux \refbleue{Schreyer, 2003}.
+
+\subsection{Les services du capital}
+
+Pour toute catégorie d’actif, il existe un flux de services productifs générés par le stock cumulé de
+l’investissement réalisé. Ce flux est appelé services du capital de la catégorie d’actif considérée et
+constitue, selon les études empiriques récentes sur la mesure du capital, la mesure appropriée du facteur
+capital pour l’analyse de la production et de la productivité \refbleue{Schreyer, 2003}.
+
+Plus formellement, les services du capital sont définis d’après l’OCDE \refbleue{2009} comme étant le flux de services
+productifs provenant des actifs immobilisés et destinés à la production. En d’autres termes, il s’agit de la
+contribution des actifs à la production. Le service du capital est, selon Paul Schreyer \refbleue{2003}, un concept à multiples facettes provenant des biens d’équipement achetés ou loués qui contribuent au processus de
+production.
+
+Les stocks de capital et les services du capital sont deux concepts différents mais restent étroitement liés
+\refbleue{Rudolf \& Zurlinden, 2009}. Le stock productif défini ci-dessus constitue en lui-même une donnée cruciale dans la
+mesure des services fournis par une catégorie d’actif donnée \refbleue{Manuel de l’OCDE, 2003}.
+
+Bien qu’ils soient mesurés à partir des comptes nationaux, leur estimation demeure assez
+complexe comparativement à celle des flux de services de main-d’œuvre \refbleue{Baldwin et Gu, 2007}. Malheureusement, peu
+de pays ont jusque-là publié des données officielles sur les services du capital \refbleue{Schreyer, 2003}. Les
+méthodes d’estimation sont cependant très controversées. À ce jour, aucune méthodologie n’a été
+acceptée à l’unanimité, ce qui accroît la complexité de la mesure.
+
+\subsection{La productivité multifactorielle}
+
+La mesure de la productivité multifactorielle (ou productivité totale des facteurs) est l’un des objectifs
+majeurs de la mesure des services du capital. Elle repose sur la comparaison du taux de croissance réel de la
+production à l’accroissement de la production que l’on s’attendrait à observer si l’on augmentait les intrants
+tout en continuant d’appliquer les techniques préexistantes ou courantes de production \refbleue{Baldwin et Gu, 2007}.
+
+Ce concept remonte aux travaux de Solow \refbleue{1957}, qui l'appelle progrès technique et l’explique comme étant la partie de la croissance non expliquée par les facteurs de production. Jusqu’aux années 1980, la seule forme de productivité qui était évaluée par les programmes d’évaluation de la
+productivité des organismes statistiques est celle du travail \refbleue{Baldwin et Gu, 2007}. Récemment, des mesures de
+la productivité multifactorielle ont été lancées afin de tenir compte non seulement du travail mais aussi du
+capital. Cependant, vu la complexité de la mesure du capital, les estimations de la productivité
+multifactorielle soulèvent également de nombreuses divergences \refbleue{Baldwin et Gu, 2007}.
+
+Mais, contrairement à l'entendement de Solow (1957), l'OCDE (2001) explique que la PMF ne reflète pas uniquement un progrès technique mais les effets combinés du progrès technique, des économies d'échelle, des gains d'efficacité, des variations du taux d'utilisation des capacités et des erreurs de mesure. Elle indique, en effet, la capacité d'un secteur à contribuer à la croissance économique à l'échelle de l'économie.
+
+\section{Revue théorique}
+
+La littérature sur l’estimation des services de capital est assez abondante. Les mesures faites jusque-là
+reposent essentiellement sur les travaux menés par Jorgenson et ses coauteurs. Ils ont établi les bases et la
+théorie nécessaires pour comprendre non seulement le mécanisme d’investissement des entreprises, mais aussi
+les différentes méthodes de mesure du capital et de la productivité totale des facteurs.
+
+\subsection{Théorie néoclassique de la production}
+
+La mesure des services du capital repose essentiellement sur la théorie économique de la production. Également
+appelée analyse du choix du producteur, cette théorie remonte aux travaux de Marshall \refbleue{1890}, de Walras
+\refbleue{1874}, Hicks \refbleue{1939} et Samuelson \refbleue{1947}. Cette théorie repose principalement sur l’hypothèse de rationalité des producteurs, c’est-à-dire qu’ils cherchent toujours à maximiser leur profit et à minimiser leurs coûts.
+
+Telle que Varian l’a présentée dans ses manuels \refbleue{1992, 2006}, cette théorie décrit le mécanisme par lequel les
+producteurs utilisent leurs facteurs de production afin de produire des biens et services. Elle stipule que
+chaque firme est dotée d’une fonction de production traduisant mathématiquement la relation qui existe entre les
+quantités de facteurs de production utilisés et la quantité maximale d’outputs (les produits du processus de
+production) obtenue. Cette fonction de production prend comme argument les deux principaux facteurs de
+production des firmes, à savoir le travail et le capital mesurés en termes de services fournis et non en termes
+de quantité des facteurs. Ladite fonction s’écrit alors~:
+
+\[
+Q=F(K,L)
+\]
+
+où \(K\) représente le flux de services fournis par le capital et \(L\), le flux de services apportés par le
+travail.
+
+Cette fonction de production permet ainsi de définir la notion de productivité factorielle qui indique
+l’impact d’un facteur sur la production lorsque les quantités utilisées des autres facteurs restent inchangées.
+Elle permet également de définir le concept de profit qui représente l’écart entre les ventes de l’entreprise
+considérée et les coûts de production.
+
+La théorie de la production stipule que lorsqu’une entreprise produit, elle cherche une quantité dite optimale
+de facteurs de production lui permettant de maximiser son profit ou de minimiser ses coûts de production. Pour
+obtenir cette quantité optimale, il faut que le rapport des productivités marginales des deux facteurs
+(capital et travail) soit égal au rapport des rémunérations des deux facteurs, soit~:
+
+\[
+\frac{Pm_{K}}{Pm_{L}}=\frac{r}{w}
+\]
+
+où \(r\) représente le taux de rémunération du capital et \(w\), le salaire versé pour chaque unité de travail
+utilisée.
+
+Varian définit également la notion de rendement d’échelle, largement utilisée dans la littérature sur
+l’estimation des services de capital. Les rendements d’échelle représentent l’accroissement de l’efficience du
+processus de production à la suite de l’augmentation des facteurs de production. Ils sont croissants lorsque
+la production varie de façon plus importante que la variation des facteurs de production utilisés~: on parle
+dans ce cas d’économies d’échelle. Ils sont décroissants lorsque la production varie de façon moins
+importante que la variation des facteurs de production utilisés, et constants lorsque la production varie
+dans les mêmes proportions que les facteurs de production utilisés.
+
+\subsection{Théorie de l’accumulation optimale du capital}
+
+Il s’agit d’une approche néoclassique basée sur la théorie économique de la production. Cette théorie trouve
+ses racines dans les travaux d’Irving Fisher \refbleue{1907, 1930} sur l’intérêt et le choix intertemporel avant d’être
+reprise par Dale W. Jorgenson en 1963. Elle explique comment une entreprise choisit, au fil du temps, son
+niveau d’investissement et son stock de capital de manière à maximiser sa valeur ou son utilité
+intertemporelle, sous des contraintes technologiques et financières. Elle stipule que les entreprises sont en
+quête d’investissements productifs et que, pour cela, elles cherchent à maximiser la valeur présente des flux de
+revenu générés par un projet d’investissement donné. Les entreprises font le choix d’investir lorsque le taux
+de rendement marginal du capital est supérieur ou égal au taux d’intérêt du marché. L’accumulation optimale
+du capital s’obtient en cas d’égalité.
+
+Cependant, selon Jorgenson \refbleue{1963}, cette théorie soutenue par Fisher est loin de pouvoir expliquer les
+comportements d’investissement. Il part ainsi de ladite théorie pour présenter la sienne qui stipule que
+l’accumulation optimale du capital est atteinte lorsque le rendement marginal du capital est égal à ce qu’il
+appelle le coût d’usage (ou encore le prix de location) du capital. C’est ainsi qu’est né le concept de coût d’usage
+du capital qui constituera dans la suite des travaux de Jorgenson l’un des éléments essentiels de l’estimation
+des services du capital.
+
+Le coût d’usage du capital se définit comme étant le «~loyer~» que l’entreprise devrait se verser à elle-même si elle
+louait le capital au lieu de l’utiliser. En effet, lorsqu’un actif fournit des services à son propriétaire,
+aucune transaction commerciale n’est comptabilisée, contrairement au travail, dont le prix est le salaire. Le
+coût d’usage du capital constitue donc une mesure du coût implicite d’utilisation du capital. Il est défini
+par trois principales composantes, à savoir le taux de rendement ou coût~d’opportunité du capital, la
+dépréciation de l’actif et les gains ou pertes en capital. Ainsi, pour un actif donné, le prix de location
+s’écrit comme suit~:
+
+\[
+c=P^{A}(r+\delta -\pi )
+\]
+
+où \(c\) est le prix de location, \(P^{A}\), le prix d’acquisition de l’actif considéré, \(r\) le taux de
+rendement, \(\delta \), le taux de dépréciation et \(\pi \), le taux de variation anticipé du prix de l’actif
+(gains en capital anticipés).
+
+Dans ses travaux ultérieurs, Jorgenson a intégré la fiscalité dans la formule du coût d’usage afin de le
+rendre plus conforme à la réalité.
+
+\section{Revue empirique}
+
+Pour apprécier la contribution des services du capital à la productivité, des auteurs comme Jorgenson et Griliches
+\refbleue{1967} ont utilisé l’approche de la théorie économique de la productivité pour déterminer une méthode de
+mesure du prix et du volume des services de capital. 
+Des auteurs comme Hulten \refbleue{1990}, Diewert \refbleue{2004},
+ainsi que Schreyer, Diewert et Harrison \refbleue{2005} ont approfondi les concepts de services de capital et de prix de
+location de ce dernier. 
+
+L’OCDE a d’ailleurs publié des manuels complets sur la mesure du capital et de la productivité, tout en produisant régulièrement des données sur les stocks nets et productifs et sur les services du capital de ses pays membres. En utilisant la
+méthodologie présentée par l’OCDE,
+Schreyer \refbleue{2003} présente des estimations des services de capital pour les pays du G-7 tout en examinant les
+conséquences qui en découlent pour les taux de croissance mesurés de la productivité multifactorielle. Ce
+travail a permis de montrer que les estimations des services de capital sont sensibles aux choix
+méthodologiques des auteurs et que l’utilisation du stock net de capital comme mesure du facteur capital
+entraîne une surestimation de la productivité multifactorielle et une sous-estimation de la contribution des
+actifs à la croissance économique.
+
+Au Canada, Baldwin et Gu \refbleue{2007} examinent les effets de diverses méthodes de calcul du prix de location du capital sur les estimations des indices de prix et de volume des services du capital. Ils s'intéressent également aux effets du choix du taux prévu de rendement sur les résultats, à l’appréhension
+du gain de capital et au traitement des dispositions fiscales applicables aux sociétés pour estimer le coût
+d’usage du capital. Cette étude montre que le choix d’inclure les gains en capital est tout à fait arbitraire, mais qu’il est préférable de les inclure après les avoir lissés. Elle montre également que les résultats obtenus en testant les taux endogène et exogène sont assez proches et que l’omission des paramètres fiscaux pourrait entraîner de sérieux biais dans les estimations.
+
+Au Royaume-Uni, Oulton et Wallis \refbleue{2015} ont établi des estimations du stock de capital fixe et des services du
+capital entre 1950 et 2013 pour l’ensemble de l’économie et pour le secteur marchand en couvrant huit types
+d’actifs. Ils ajoutent à cela une comparaison de l’effet sur les estimations des services du capital de
+l’utilisation d’un taux de rendement exogène ou endogène ainsi que la présentation d’une méthode hybride
+d’estimation du prix de location du capital en combinant les approches exogène et endogène du taux de
+rendement. Les résultats obtenus montrent que les services de capital ont connu une croissance plus rapide que
+le stock de capital agrégé au cours de la période 1950--2013 (à raison d’environ 0,4\% par an). De plus, la
+méthode hybride présentée conduit à une croissance des services de capital agrégés légèrement plus lente que
+la méthode endogène, mais, pour que cette dernière fonctionne, il faut effectuer un certain lissage.
+
+En Suisse, Rudolf et Zurlinden \refbleue{2009} estiment le stock net de capital et le flux de services de capital sur
+la période 1970--2005 en prenant en compte uniquement les actifs fixes. Leurs résultats confirment également la
+sensibilité des estimations aux choix méthodologiques faits lors du calcul du coût d’usage du capital.
+
+Des travaux ont également été effectués dans les pays émergents et en développement. En Asie, Erumban et Das
+\refbleue{2014} utilisent des données d’investissement pour estimer les services de capital pour 26 secteurs
+industriels de l’économie indienne sur la période 1980--2008 en se basant sur la méthodologie de Jorgenson. En
+Afrique, Nkama \refbleue{2007} fait une analyse de l’impact des investissements en TIC sur la productivité des
+entreprises camerounaises. Cette étude ne fait cependant pas d’estimation explicite de services de capital.
+
+\chapter{Méthodologie d’estimation du stock de capital et du service de capital}
+
+\section{Présentation des données}
+
+La Division de la Comptabilité nationale de l’ANSD produit annuellement des données sur la formation brute de capital fixe (FBCF), répartie selon chaque type d’actif. Les données utilisées dans la présente étude sont des séries temporelles de la FBCF par actif allant de 2015 à 2021, de l’EBE annuel ainsi que des impôts par type d’actif et par année. La mesure de la contribution de l’intrant travail a nécessité l’utilisation d’une base de données constituée d’heures de travail, de rémunérations salariales et du nombre d’employés entre 2015 et 2021. Pour la décomposition de la croissance en contributions des différents facteurs de production, une série de données sur la croissance annuelle du PIB entre 2015 et 2021 a été utilisée.
+
+Les données sur la FBCF, en valeur et en volume, sont ventilées par type d’actif et par année. Les séries provenant directement des comptes nationaux respectent parfaitement l’équilibre offre-demande et ne présentent aucune donnée manquante, à l’exception d’un actif qui n’a pas fait l’objet d’une FBCF jusqu’en 2020. Les données sur le travail proviennent des comptes nationaux. Il s’agit d’une base contenant le nombre d’employés et les rémunérations salariales de 2015 à 2021 ainsi que le nombre d'heures de travail par branche d'activité en 2021. En raison de l’insuffisance des données et de l’absence du nombre d’heures de travail entre 2015 et 2020, celui-ci a été estimé en supposant qu’il variait entre les années au même rythme que le nombre d’employés. Ce processus est appelé « rétropolation » dans le langage comptable.
+
+
+\section{Classification des actifs non financiers selon l’ANSD}
+
+Selon le SCN 2008, les actifs non financiers sont répartis en deux groupes~: les actifs non financiers
+produits et les actifs non financiers non produits.
+
+L’ANSD utilise un système de classification des actifs non financiers produits similaire à celui du SCN 2008.
+Il existe trois grandes catégories d’actifs non financiers, à savoir les actifs fixes, les variations de
+stocks et les objets de valeur, qui comprennent chacune plusieurs sous-catégories.
+
+Les actifs fixes sont répartis en cinq sous-catégories~: les bâtiments et travaux publics, les machines
+et équipements, le bétail reproducteur et les animaux de trait, les droits de propriété intellectuelle et les
+autres actifs fixes non classés ailleurs. Les variations de stocks concernent essentiellement les matières premières, les
+produits en cours, les produits finis et les biens pour revente. Les objets de valeur comprennent les pierres
+et métaux précieux, les antiquités et autres objets d’art et les autres objets de valeur.
+
+Cependant, l’ANSD ne produit pas de comptes de patrimoine, ce qui fait que les données sur les actifs non financiers non produits sont indisponibles. Mais cela ne
+constitue pas un obstacle à la présente étude car seuls les actifs fixes seront utilisés dans l’estimation des
+services de capital.
+
+
+\begingroup
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.34\textwidth}>{\raggedright\arraybackslash}p{\dimexpr0.66\textwidth-2\tabcolsep\relax}@{}}
+\caption{Classification des actifs fixes}\label{tab:classification-actifs}\\
+\toprule
+\color{bleufonce}Actifs fixes & \color{bleufonce}Actifs correspondants \\
+\midrule
+\endfirsthead
+\toprule
+\color{bleufonce}Actifs fixes & \color{bleufonce}Actifs correspondants \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r@{}}{\footnotesize Suite à la page suivante}\\
+\endfoot
+\bottomrule
+\multicolumn{2}{@{}l}{\footnotesize Source~: ANSD}\\
+\endlastfoot
+Bâtiments et travaux publics & Logements et bâtiments non résidentiels\newline Ouvrages de génie civil\newline Installations et finitions \\
+\midrule
+Matériels et équipements & Matériels de transport\newline Matériels informatiques\newline Équipements électriques\newline Autres machines et équipements \\
+\midrule
+Bétail reproducteur et animaux de trait & Bétail reproducteur et animaux de trait \\
+\midrule
+Droits de propriété intellectuelle & Base de données et logiciels\newline Recherche-développement et prospection minière \\
+\midrule
+Autres actifs fixes n.c.a & Autres actifs fixes\newline Ouvrages en métaux \\
+\end{longtable}
+\endgroup
+
+Étant donné qu’un actif appelé «~Autres services de spécialisation scientifique et technique~» n’a pas fait l’objet d’une FBCF jusqu’en 2020, celui-ci a été regroupé avec l’actif «~Recherche-développement et prospection minière~» pour constituer une nouvelle catégorie d’actifs appelée «~Services de spécialisation scientifique et technique~».
+
+
+\section{Les méthodes d’estimation des services de capital}
+
+Jorgenson et ses coauteurs ont établi les théories fondatrices de l’estimation des stocks et des services du
+capital. Toutes les études menées jusque-là à ce sujet sont fondées sur ces théories. Toutefois, dans la
+pratique, le manuel de l’OCDE sur la mesure du capital (qui se base également sur les travaux de Jorgenson et
+ses coauteurs) est la référence la plus utilisée au niveau international. C’est pour cela que cette partie sera
+consacrée à la présentation de la méthodologie de l’OCDE.
+
+La méthode standard pour estimer les services du capital comprend trois étapes~: l’estimation du stock productif, l’estimation du prix de location du capital et l’agrégation des services de capital. Toutefois, il
+faut noter que même si les études empiriques qui ont été menées jusque-là suivent cette méthode, elles n’ont
+pas exactement la même méthodologie. Les différences interviennent dans les choix méthodologiques des auteurs.
+Nous verrons plus tard que pour chaque étape de la méthode standard, il y a plusieurs paramètres qui peuvent
+entrer en jeu, ce qui conduit à de nombreuses divergences dans les méthodes d’estimation du service de
+capital.
+
+\subsection{Estimation du stock de capital}
+
+Le stock de capital est présenté par l’OCDE sous trois formes~: le stock brut, le stock net et le stock
+productif.
+
+Le stock brut donne une mesure des investissements diminués des sorties ou mises hors service. Il ne tient pas
+compte de la dépréciation des actifs et évalue seulement la valeur des actifs encore présents dans le processus
+de production.
+
+Le stock net, lui, contrairement au stock brut, prend en compte la dépréciation des actifs. Il est également
+considéré comme une estimation du stock de richesse de la zone économique considérée. Ce stock s’obtient grâce à une
+fonction âge-prix ou profil âge-prix ou encore amortissement qui peut être géométrique ou linéaire. Le modèle
+linéaire est courant. Il suppose que le profil âge-prix de l’actif suit une courbe décroissante linéaire, tandis
+que la méthode géométrique, qui est également assez courante d’ailleurs, suppose que l’amortissement de
+l’actif se fait avec un taux constant \(\delta \). Toutefois, l’OCDE recommande l’utilisation du profil
+géométrique, car il est généralement mieux étayé par les données empiriques, conceptuellement correct et facile à mettre
+en œuvre.
+
+Enfin, le stock productif correspond à la valeur cumulée des flux d’investissement passés corrigés de
+la perte d’efficacité productive. Il est calculé grâce à une fonction d’efficacité en fonction de l’âge, appelée
+profil d’efficacité qui peut être géométrique, linéaire ou hyperbolique. L’efficacité géométrique postule que
+l’efficacité d’une cohorte diminue à un taux constant \(\delta \). C’est la méthode la plus fréquemment utilisée dans les applications
+empiriques. Le profil linéaire suppose que l’efficacité productive diminue d’un montant absolu constant à
+chaque période. Cette méthode est assez simple à mettre en œuvre mais n’est pas forcément plausible dans la
+réalité. Le profil hyperbolique suppose que les actifs ne perdent que peu de leur capacité productive au cours
+des premières phases de leur durée de vie mais subissent une perte rapide de cette capacité vers la fin de
+leur durée de vie. Ce type de profil est assez utilisé, notamment par le Bureau américain des statistiques du
+travail \refbleue{1983}, par le Bureau australien des statistiques \refbleue{ABS 2000}, etc.
+
+Conformément aux recommandations de l’OCDE, les profils géométriques seront retenus pour la présente étude. Ainsi, avec la
+méthode de l’inventaire perpétuel, le stock net d’un actif i au moment t est défini par~:
+
+\[
+{S}_{t}^{i}=\sum_{\tau =0}^{\infty } {(1-{\delta }^{i})}^{\tau }{I}_{t-\tau }^{i}
+\]
+
+où \({\delta }^{i}\) est le taux de dépréciation de l’actif i et \({I}_{t-\tau }^{i}\) représente les flux
+d’investissements annuels en volume.
+
+Comme nous avons choisi un mode d’amortissement géométrique, le stock productif et le stock net
+pour un actif donné coïncident \refbleue{Manuel de l’OCDE sur la mesure du capital, 2009}. De plus, dans la littérature
+empirique, le volume de service fourni par un actif donné est supposé proportionnel à son stock productif avec
+un coefficient de proportionnalité égal à 1. Ainsi, le volume de services fourni par l’actif i au moment t
+est~:
+
+\[
+{K}_{t}^{i}={S}_{t}^{i}
+\]
+
+\subsection{Estimation du prix de location du capital}
+
+La deuxième étape de la méthode standard susmentionnée est l’estimation du prix de location du capital. Dans
+la méthodologie de l’OCDE, pour un actif i au moment t, celui-ci s’exprime comme suit~:
+
+\[
+{c}_{t}^{i}={q}_{t-1}^{i}({r}_{t}-{\zeta }_{t}^{i})+{q}_{t}^{i}{\delta }^{i}
+\]
+
+où~:
+
+\begin{itemize}
+
+\item \({q}_{t-1}^{i}\) est le prix d’acquisition de l’actif i (actif neuf) à la période t-1.
+Le prix d’acquisition d’un actif se définit comme étant égal au flux actualisé de la valeur des services que
+l’actif est censé générer à l’avenir \refbleue{Schreyer, 2003}~;
+
+\item \({\delta }^{i}\) est le taux d’amortissement de l’actif i~\refbleue{Schreyer, 2003} ;
+
+\item \({\zeta }_{t}^{i}\) représente le gain en capital de l’actif i à la période t. Il s’agit plus
+précisément de la variation de prix attendue entre le début et la fin de la période t \refbleue{Schreyer, 2003}~: \({\zeta
+}_{t}^{i}=\frac{{q}_{t}^{i}}{{q}_{t-1}^{i}}-1 \). Les analystes ont le choix d’inclure ou
+non ce terme. Une étude faite par Baldwin et Gu \refbleue{2007} montre que le fait d’inclure ou non ce terme est tout à fait arbitraire mais qu’il est préférable de n’inclure dans l’analyse qu’un terme lissé car les séries
+de gains en capital non lissés sont très instables et peuvent introduire des biais dans l’estimation des
+services de capital ;
+
+\item \({r}_{t}\) est la rémunération restante attendue du propriétaire du capital une fois que l’amortissement et
+les variations de prix de l’actif ont été prises en compte \refbleue{Schreyer, 2003}.
+
+\end{itemize}
+
+La méthode de traitement du taux de rendement est très importante dans l’estimation des services de capital.
+Baldwin et Gu \refbleue{2007} montrent qu’une mauvaise méthode de calcul de ce taux pourrait entraîner de sévères
+répercussions sur les estimations. Il existe deux types de taux de rendement parmi lesquels il faut choisir un
+seul~: le taux endogène (ex post) et le taux exogène (ex ante).
+
+Le taux endogène s’obtient à partir des données tirées des comptes nationaux sur le stock de capital et sur le
+revenu du capital qui est constitué de l’excédent brut d’exploitation (EBE) et de la partie du revenu mixte
+attribuable au capital. Plus explicitement, il s’agit du taux qui égalise la valeur des services de capital et
+le revenu du capital. Il est connu pour la simplicité de son calcul mais présente de nombreux inconvénients.
+Lorsque l’EBE est négatif, cela peut entraîner des coûts d’utilisation négatifs pour certains actifs d’après
+le manuel de l’OCDE. Et même dans le cas où l’EBE est positif, le taux endogène peut parfois être négatif ce
+qui peut poser un problème dans le processus d’agrégation des services du capital. Même si ce taux facilite le
+calcul, il est basé sur les hypothèses de rendements d’échelle constants et de marchés parfaitement
+concurrentiels qui ne sont pas forcément vérifiées.
+
+C’est pour cela que certains auteurs préconisent le taux exogène qui ne nécessite pas ces hypothèses. Ce taux
+s’obtient à partir des données financières, par exemple par une moyenne pondérée du taux de rendement réalisé sur
+le marché boursier. Mais l’inconvénient du taux exogène est que lorsqu’on l’utilise, la cohérence des
+estimations avec les comptes nationaux est perdue car dans ce cas la valeur des services du capital ne coïncide
+pas nécessairement avec celle de l’EBE, ce qui complique les opérations de
+comptabilisation de la croissance \refbleue{Schreyer, 2003}. De plus, lorsqu’il n’est pas bien calculé, le taux exogène
+peut introduire des biais dans les estimations \refbleue{Baldwin et Gu, 2007}, d’autant plus que la théorie ne donne pas d’indication sur
+la manière dont les taux du marché devraient être choisis. De plus, selon le manuel de l’OCDE \refbleue{2007}, il peut
+s’avérer difficile, voire impossible, d’identifier les taux de rendement exogènes pour certains pays lorsque
+les marchés financiers sont sous-développés ou soumis à de fortes contraintes réglementaires.
+
+Les travaux de Baldwin et Gu \refbleue{2007} ont permis de montrer que lorsque le taux de rendement endogène est
+calculé à partir des données au niveau de l’industrie tirées des comptes nationaux et que le taux exogène est
+une moyenne pondérée des taux de rendement des marchés boursier et obligataire, les écarts entre les deux
+rendements ne sont pas très importants de même que les écarts dans les estimations de la productivité
+multifactorielle (entre 14 et 12\% d’écart). La théorie ne permet pas de dire laquelle des deux approches est
+la meilleure, mais les auteurs recommandent de prendre en compte les considérations empiriques. D’autres
+auteurs se sont également penchés sur la comparaison des effets des deux types de taux mais leurs résultats
+sont assez mitigés. Alors qu’Oulton \refbleue{2007}, par exemple, trouve que les différences entre les effets sont
+faibles en moyenne, Schreyer \refbleue{2007} constate des différences marquées dans ses résultats.
+
+La méthode endogène demeure toutefois la plus utilisée dans les études empiriques vu sa cohérence avec les
+comptes nationaux ainsi que la simplicité de son calcul. Elle est adoptée en l’occurrence par le Canada,
+l’Australie et les États-Unis ainsi que l’OCDE.
+
+Étant donné que nous ne disposons pas des données nécessaires pour une éventuelle estimation du taux exogène,
+nous utiliserons dans la présente étude le taux de rendement endogène dans l’estimation du prix de location du
+capital. Comme nous avons choisi un profil d’efficacité géométrique, conformément à la
+méthodologie de l’OCDE, nous utiliserons la formule suivante pour estimer ce rendement~:
+
+\[
+{r}_{t}=\frac{{R}_{t}+{T}_{t}-\sum_{k}({\delta }^{k}-{\zeta }_{t}^{k}){q}_{t-1}^{k}{K}_{t}^{k}}
+{\sum_{k}{q}_{t-1}^{k}{K}_{t}^{k}}
+\]
+
+où~:
+
+\begin{itemize}
+
+\item \({R}_{t}\) est l’excédent brut d’exploitation (EBE) ;
+
+\item \({T}_{t}\) correspond à l’impôt prélevé sur les actifs ;
+
+\item \({\delta }^{k}\) est l’amortissement de l’actif k ;
+
+\item \({\zeta }_{t}^{k}\) est le gain en capital ;
+
+\item \({q}_{t-1}^{k}\) est le prix d’acquisition de l’actif k au début de la période t ;
+
+\item \({K}_{t}^{k}\) est le stock productif de l’actif k à la période t.
+
+\end{itemize}
+
+En ce qui concerne les gains en capital, pour éviter l’instabilité des résultats qu’ils pourraient causer,
+ils seront omis dans l’estimation du prix de location du capital. Ainsi, la formule se résumera à~:
+
+\[
+{c}_{t}^{i}={q}_{t-1}^{i}{r}_{t}+{q}_{t}^{i}{\delta }^{i}
+\]
+
+Une fois le prix de location du capital estimé, il est possible d’estimer la valeur des services fournis par un
+actif i au moment t grâce à la formule~:
+
+\[
+{c}_{t}^{i}{K}_{t}^{i}={c}_{t}^{i}{S}_{t-1}^{i}
+\]
+
+Et l’agrégation de toutes les catégories d’actifs donne la valeur totale des services du capital sous la forme
+suivante~: \({c}_{t}{K}_{t}=\sum_{i} {c}_{t}^{i}{K}_{t}^{i}\).
+
+\subsection{Agrégation des services de capital}
+
+Après avoir estimé les valeurs des services et des stocks de capital de chaque actif, l’étape suivante consiste à
+construire un indice agrégé pour chacune des deux mesures. L’agrégation se fait à plusieurs niveaux~: par catégorie d’actifs,
+par branche d’activité et pour toute l’économie. Il convient de souligner que la
+majeure partie de la valeur analytique des mesures du stock productif ne réside pas dans le niveau du stock en
+tant que tel mais dans son taux de variation car ce taux de variation constitue l’indice de volume des
+services du capital, qui est à son tour l’objectif analytique de la mesure de l’apport du capital et de la
+productivité, d’après le manuel de l’OCDE. La formule habituelle et recommandée du point de vue théorique pour
+construire un indice de volume des services du capital utilise l’indice de Törnqvist.
+
+Il faut également noter que les mesures agrégées des services et des stocks du capital sont soumises à des
+normes du fait de l’hétérogénéité des actifs. L’agrégation ne consiste pas seulement à additionner les
+services de chaque actif car tous les actifs n’ont pas les mêmes contributions. C’est
+pourquoi, selon ce que l'on souhaite agréger (les stocks ou les services), il faut utiliser une méthode de
+pondération bien précise.
+
+Dans un premier temps, il faut calculer les indices de volume des stocks et services du capital pour chaque
+catégorie d’actif.
+
+Pour les stocks nets de capital, les pondérations se font à partir des prix d’acquisition des actifs. Ainsi,
+la formule basée sur l’indice de Törnqvist s’écrit~:
+
+\[
+\ln \left( \frac{{S}_{t}}{{S}_{t-1}}\right)=\sum_{i=2}^{N} \frac{1}{2}\left( {w}_{t}^{i}+{w}_{t-1}^{i}\right)\ln(\frac{{S}_{t}^{i}}{{S}_{t-1}^{i}})
+\]
+
+où~:
+
+\begin{itemize}
+
+\item \({S}_{t}\) et \({S}_{t-1}\) représentent les stocks nets de capital pour la catégorie d’actifs
+considérée respectivement pour les périodes t et t-1~;
+
+\item \({S}_{t}^{i}\) et \({S}_{t-1}^{i}\) représentent les stocks nets de l’actif i respectivement pour les
+périodes t et t-1~;
+
+\item N est le nombre d’actifs de la catégorie considérée ou de toute l’économie~;
+
+\item \({w}_{t}^{i}=\frac{{q}_{t,0}^{i}{S}_{t}^{i}}{\sum_{i} {q}_{t,0}^{i}{S}_{t}^{i}}\) est la part de
+l’actif i dans la valeur totale du stock.
+
+\end{itemize}
+
+Pour les services du capital, la pondération se fait à partir du prix de location du capital, la formule
+donne~:
+
+\[
+\ln \left( \frac{{K}_{t}}{{K}_{t-1}}\right)=\sum_{i=1}^{N} \frac{1}{2}\left( {w}_{t}^{i}+{w}_{t-1}^{i}\right)\ln(\frac{{K}_{t}^{i}}{{K}_{t-1}^{i}})
+\]
+
+où~:
+
+\begin{itemize}
+
+\item \({K}_{t}\) et \({K}_{t-1}\) représentent les volumes de services fournis par la catégorie d’actif
+considérée respectivement pour les périodes t et t-1~;
+
+\item \({K}_{t}^{i}\) et \({K}_{t-1}^{i}\) représentent les volumes de services fournis par l’actif i
+respectivement pour les périodes t et t-1~;
+
+\item N est le nombre d’actifs de la catégorie considérée ou de toute l’économie~;
+
+\item \({w}_{t}^{i}=\frac{{c}_{t,0}^{i}{K}_{t}^{i}}{\sum_{i} {c}_{t,0}^{i}{K}_{t}^{i}}\) est la part de
+l’actif i dans la rémunération totale issue du capital.
+
+\end{itemize}
+
+Cette méthode sera reproduite pour faire l’agrégation par branche d’activité, par secteur d’activité et pour
+toute l’économie.
+
+\section{Méthodologie d’estimation de la productivité multifactorielle}
+
+\subsection{Estimation des services du travail}
+
+Selon l’OCDE \refbleue{2001}, le facteur travail se mesure plus justement par le nombre total d’heures travaillées.
+Dans ce cas, pour un secteur d’activité donné, la mesure se fait selon la formule~:
+
+\[
+{L}_{t}^{j}=52{E}_{t}^{j}{h}_{t}^{j}
+\]
+
+où \({L}_{t}^{j}\) est le nombre total d’heures travaillées dans le secteur j à la période t, \({E}_{t}^{j}\)
+est le nombre de personnes employées dans le secteur j à la période t et \({h}_{t}^{j}\) est le nombre moyen
+d’heures travaillées hebdomadairement par personne dans le secteur j à la période t. Étant donné que les heures travaillées sont observées hebdomadairement, nous les avons multipliées par 52 afin d’obtenir le nombre d’heures travaillées sur l’ensemble de l’année.
+
+Pour agréger la mesure du facteur travail pour toute l’économie, la méthode la plus recommandée par l’OCDE
+\refbleue{2001} est l’utilisation de l’indice de Törnqvist~:
+
+\[
+\ln \left( \frac{{L}_{t}}{{L}_{t-1}}\right)=\sum_{j} \frac{1}{2}({s}_{L,t}^{j}+{s}_{L,t-1}^{j})\ln(\frac{{L}_{t}^{j}}{{L}_{t-1}^{j}})
+\]
+
+où \({s}_{L,t}^{j}\) et \({s}_{L,t-1}^{j}\) sont les parts dans la rémunération totale du travail
+respectivement aux périodes t et t-1. \({s}_{L,t}^{j}=\frac{{w}_{t}^{j}{h}_{t}^{j}}{\sum_{j}{w}_{t}^{j}{h}_{t}^{j}}\), \({w}_{t}^{j}\) représente le salaire horaire dans le secteur j.
+
+\subsection{Estimation de la croissance de la productivité multifactorielle}
+
+La théorie économique de la mesure de la productivité remonte aux travaux de Robert Solow \refbleue{1957}, qui montrent
+que la croissance économique peut être décomposée en contributions du capital, du travail et de la
+productivité totale des facteurs (PMF). La littérature s’est davantage enrichie grâce aux contributions de
+Jorgenson et Griliches \refbleue{1967} qui établissent une méthodologie d’estimation de la PMF en se basant sur les
+travaux de Solow.
+
+Selon l’OCDE \refbleue{2021}, la croissance de la PMF se calcule comme suit~:
+
+\[
+\ln \left( \frac{{PMF}_{t}}{{PMF}_{t-1}}\right)=\ln \left( \frac{{Y}_{t}}{{Y}_{t-1}}\right)-\ln(\frac{{X}_{t}}{{X}_{t-1}})
+\]
+
+où \({Y}_{t}\) représente le PIB mesuré en volume et \(\ln(\frac{{X}_{t}}{{X}_{t-1}})\) est le taux de
+croissance des intrants totaux calculé comme suit~:
+
+\[
+\ln \left( \frac{{X}_{t}}{{X}_{t-1}}\right)=\frac{1}{2}\left( {s}_{t}^{L}+{s}_{t-1}^{L}\right)\ln \left( \frac{{L}_{t}}{{L}_{t-1}}\right)+\frac{1}{2}\left( {s}_{t}^{K}+{s}_{t-1}^{K}\right)\ln \left( \frac{{K}_{t}}{{K}_{t-1}}\right)
+\]
+
+Cette méthode se fonde sur l’hypothèse de Hicks de neutralité du progrès technique car il est représenté comme
+un décalage vers l’extérieur de la fonction de production qui affecte tous les facteurs de production.
+
+\chapter{Estimations des services du capital et de la croissance de la productivité multifactorielle}
+
+\begin{introductionchapitre}
+Ce chapitre présente et analyse les principaux résultats de l’étude. Il examine d’abord l’évolution de
+l’investissement en actifs fixes au Sénégal, puis les estimations du stock net et des services du capital.
+Enfin, il analyse la croissance de la productivité multifactorielle et décompose la croissance économique
+selon les contributions du capital, du travail et de la productivité multifactorielle.
+\end{introductionchapitre}
+
+\section{Analyse de l’investissement en actifs fixes au Sénégal}
+
+\subsection{Évolution de la formation brute de capital fixe et du produit intérieur brut du Sénégal}
+
+Le PIB et la FBCF ont connu une tendance linéaire à la hausse de 2015 à 2021. Le PIB est passé d’une valeur de 10 509 milliards de FCFA courants en 2015 à 15 261 milliards de FCFA courants en 2021, soit une augmentation de 45,2\% et une croissance annuelle moyenne de 3\%. D’après le rapport pays 2024 de la Banque africaine de Développement (BAD), la croissance observée entre 2010 et 2019 est largement tirée par de solides performances dans l’industrie et l’agriculture, ainsi que par le regain des activités d’exportation et une politique budgétaire vertueuse.
+
+La FBCF, quant à elle, est passée de 2 419 à 5 188 milliards de FCFA à prix courants, soit une progression de 114,5\%. L’évolution de la FBCF est principalement portée par sa composante privée qui représente, en 2021, près de trois quarts de la FBCF globale. Entre 2014 et 2017, la FBCF privée a plus que doublé, passant de 1 692,1 milliards de FCFA à 4 364,0 milliards de FCFA.
+
+\begin{figure}[htbp]
+\centering
+\caption{Évolution du PIB et de la FBCF en volume entre 2015 et 2021 (en milliards de FCFA)}
+\label{fig:resultats-1}
+\includegraphics[width=\textwidth,height=0.50\textheight,keepaspectratio]{assets/resultats-graphique-1.png}
+\par\smallskip{\footnotesize\textit{Source : ANSD, calculs de l’auteure.}}
+\end{figure}
+\FloatBarrier
+
+\subsection{Évolution de la formation brute de capital fixe par catégorie d’actifs}
+
+De 2015 à 2021, le volume de FBCF réalisé est nettement supérieur dans la catégorie des bâtiments et travaux publics et nettement plus faible dans celle du bétail reproducteur et des animaux de trait. Dans la catégorie des bâtiments et travaux publics, la tendance de la FBCF est haussière de 2015 à 2019, puis une légère baisse est observée en 2020, suivie d’une reprise en 2021. Pour la catégorie du bétail reproducteur et des animaux de trait, l’évolution de la FBCF sur toute la période considérée est linéaire et quasi stable.
+
+Dans la catégorie des matériels et équipements, la FBCF est restée plus élevée que celle des catégories restantes, à l’exception des bâtiments et travaux publics, de 2015 à 2020, avant d’être dépassée par celle des services spécialisés scientifiques et techniques en 2021. En ce qui concerne la catégorie des autres actifs fixes non classés ailleurs, la FBCF est d’abord supérieure à celle des services spécialisés scientifiques et techniques entre 2015 et 2019, avant d’être dépassée par celle-ci en 2020 et 2021.
+
+Le flux important d’investissement observé dans la catégorie des bâtiments et travaux publics ainsi que dans celle des matériels et équipements est principalement dû à l’adoption du PSE, dont la mise en œuvre s’est concentrée sur le développement des infrastructures liées aux transports (le nouvel aéroport de Dakar, l’autoroute à péage, le Train express régional, le Bus Rapid Transit), au sport et au divertissement (le stade Abdoulaye Wade) et aux bâtiments administratifs. D’après le FMI, sur la période considérée, un peu moins de la moitié de la FBCF totale est allée au secteur de la construction, environ un quart aux machines et équipements et le reste aux autres types d’actifs. Toutefois, en raison de la crise sanitaire de 2020 due à la Covid-19, les investissements dans la construction ont connu un léger ralentissement.
+
+L’augmentation conséquente des investissements dans les services spécialisés scientifiques et techniques entre 2019 et 2021 est portée par celle de la R\&D résultant d’une activité intense dans le secteur extractif au cours de cette période.
+
+\begin{figure}[htbp]
+\centering
+\caption{Évolution de la FBCF par catégorie d’actifs entre 2015 et 2021 (en milliards de FCFA)}
+\label{fig:resultats-2}
+\includegraphics[width=\textwidth,height=0.50\textheight,keepaspectratio]{assets/resultats-graphique-2.png}
+\par\smallskip{\footnotesize\textit{Source : ANSD, calculs de l’auteure.}}
+\end{figure}
+\FloatBarrier
+
+\section{Estimation du stock net de capital au Sénégal}
+
+\subsection{Évolution de la valeur du stock net de capital du Sénégal}
+
+La valeur du stock net du Sénégal a connu une évolution quasi linéaire et strictement croissante entre 2015 et 2021. Elle est passée de 23 189 milliards de FCFA en 2015 à 40 653 milliards de FCFA en 2021. Cette évolution, traduisant une accumulation nette de capital tout au long de la période considérée, s’explique, d’une part, par l’accroissement annuel de la FBCF et, d’autre part, par la prédominance des flux de FBCF réalisés chaque année comparativement à la consommation annuelle de capital fixe (CCF).
+
+\begin{figure}[htbp]
+\centering
+\caption{Évolution de la valeur du stock net de capital entre 2015 et 2021 (en milliards de FCFA)}
+\label{fig:resultats-3}
+\includegraphics[width=\textwidth,height=0.50\textheight,keepaspectratio]{assets/resultats-graphique-3.png}
+\par\smallskip{\footnotesize\textit{Source : ANSD, calculs de l’auteure.}}
+\end{figure}
+\FloatBarrier
+
+\subsection{Évolution du stock net de capital par catégorie d’actifs au Sénégal}
+
+En moyenne, sur la période 2015--2021, un peu moins de 70\% du stock net du Sénégal relève de la catégorie des bâtiments et travaux publics. Le stock net de ladite catégorie est passé de 16 631 milliards de FCFA en 2015 à 25 900 milliards de FCFA en 2021, tandis que celui de chacune des catégories restantes ne dépasse pas 5 000 milliards de FCFA. Après les bâtiments et travaux publics, la catégorie des matériels et équipements présente le stock net le plus élevé, suivie des autres actifs fixes non classés ailleurs, puis des services spécialisés scientifiques et techniques, des droits de propriété intellectuelle et, enfin, du bétail reproducteur et des animaux de trait. Pour chaque catégorie d’actifs, la tendance du stock net est globalement haussière.
+
+Ces résultats confirment ainsi que le stock de richesse du Sénégal repose principalement sur les travaux de construction et sur les bâtiments.
+
+\begin{figure}[htbp]
+\centering
+\caption{Évolution de la valeur du stock net de capital entre 2015 et 2021 au Sénégal (en milliards de FCFA)}
+\label{fig:resultats-4}
+\includegraphics[width=\textwidth,height=0.50\textheight,keepaspectratio]{assets/resultats-graphique-4.png}
+\par\smallskip{\footnotesize\textit{Source : ANSD, calculs de l’auteure.}}
+\end{figure}
+\FloatBarrier
+
+\subsection{Évolution de la croissance en volume du stock net de capital}
+
+Le volume du stock net de capital a connu, entre 2015 et 2021, une accélération progressive de son rythme de croissance, celui-ci passant de 6,9\% en 2016 à 8,6\% en 2021. Le stock net de capital a connu, sur toute la période considérée, une croissance moyenne de 7,9\%. Cette évolution annuelle est semblable à celle de la FBCF, qui s’est également accrue au cours de la même période.
+
+\begin{figure}[htbp]
+\centering
+\caption{Évolution de la croissance du stock net de capital au Sénégal entre 2016 et 2021 (en \%)}
+\label{fig:resultats-5}
+\includegraphics[width=\textwidth,height=0.50\textheight,keepaspectratio]{assets/resultats-graphique-5.png}
+\par\smallskip{\footnotesize\textit{Source : ANSD, calculs de l’auteure.}}
+\end{figure}
+\FloatBarrier
+
+\subsection{Évolution de la croissance du stock net par catégorie d’actifs au Sénégal}
+
+La croissance du stock net la plus forte est observée dans la catégorie des services spécialisés scientifiques et techniques, avec un taux situé entre 20 et 65\% entre 2015 et 2021. Entre 2016 et 2019, le rythme de croissance du stock net dans cette catégorie a ralenti, passant de 60,7\% à 20,4\%, avant de rebondir en 2020 pour s’établir à 56,6\%. La croissance connaît une nouvelle baisse en 2021, s’établissant à un taux de 44\%. Le stock net de la catégorie des droits de propriété intellectuelle a également suivi les mêmes tendances, bien que sa croissance soit nettement inférieure. Les périodes de ralentissement et d’accélération de la croissance du stock net en services spécialisés scientifiques et techniques et en droits de propriété intellectuelle correspondent respectivement à des périodes de faibles et de fortes activités extractives.
+
+La troisième catégorie enregistrant la croissance la plus élevée est celle des matériels et équipements, avec un taux de croissance moyen de 11,3\% sur la période considérée. La tendance de la croissance du stock net pour cette catégorie d’actifs est baissière, avec un taux passant de 14,6\% en 2016 à 8,5\% en 2021. Ensuite viennent les autres actifs fixes non classés ailleurs, dont la croissance du stock net est globalement haussière malgré deux périodes de ralentissement observées, notamment en 2017 et 2020. La croissance moyenne du stock net pour cette catégorie est de 9,5\%. Les catégories des bâtiments et travaux publics et du bétail reproducteur et des animaux de trait ont les taux de croissance les plus faibles, avec des moyennes respectivement égales à 5,4\% et 1,9\%.
+
+\begin{figure}[htbp]
+\centering
+\caption{Évolution de la croissance du stock net de capital par catégorie d’actifs entre 2016 et 2021 (en \%)}
+\label{fig:resultats-6}
+\includegraphics[width=\textwidth,height=0.50\textheight,keepaspectratio]{assets/resultats-graphique-6.png}
+\par\smallskip{\footnotesize\textit{Source : ANSD, calculs de l’auteure.}}
+\end{figure}
+\FloatBarrier
+
+\section{Estimation des services du capital au Sénégal}
+
+\subsection{Évolution de la valeur des services du capital au Sénégal}
+
+La valeur des services du capital est une mesure de la contribution économique des actifs productifs à la production pendant une période donnée. Elle représente le montant qu’un propriétaire devrait recevoir s’il louait son actif à une entreprise pendant une période donnée. Elle est, en d’autres termes, la rémunération totale de l’intrant capital dans le processus de production.
+
+La catégorie des bâtiments et des travaux publics est celle qui offre les services du capital les plus élevés. Entre 2015 et 2018, la valeur des services du capital dans cette catégorie passe de 1 547 à 1 671 milliards de FCFA avant de baisser progressivement jusqu’en 2020. En 2021, elle a rebondi pour s’établir à une valeur de 1 581 milliards de FCFA. La baisse observée en 2019 et 2020 provient d’une baisse des prix d’acquisition des bâtiments et travaux publics et des travaux de génie civil, qui sont les deux types d’actifs ayant les flux d’investissement les plus importants de la catégorie.
+
+Les matériels et équipements arrivent en deuxième position, avec une évolution quasi linéaire sur toute la période considérée, passant de 677 à 979 milliards de FCFA. Après les matériels et équipements, les autres actifs fixes non classés ailleurs fournissent les services du capital les plus élevés entre 2016 et 2019, passant de 356 à 427 milliards de FCFA, mais ils sont dépassés par les services spécialisés scientifiques et techniques en 2020 et en 2021.
+
+Les droits de propriété intellectuelle ainsi que le bétail reproducteur et les animaux de trait présentent les niveaux de services du capital les plus faibles. Entre 2016 et 2019, tandis que les services fournis par le bétail reproducteur et les animaux de trait diminuent progressivement, passant de 127 à 121 milliards de FCFA, ceux fournis par les droits de propriété intellectuelle augmentent, passant de 61 à 82 milliards de FCFA. En 2020 et 2021, les deux catégories d’actifs finissent par fournir pratiquement les mêmes valeurs de services.
+
+\begin{figure}[htbp]
+\centering
+\caption{Évolution de la valeur des services du capital entre 2015 et 2021 (en milliards de FCFA)}
+\label{fig:resultats-7}
+\includegraphics[width=\textwidth,height=0.50\textheight,keepaspectratio]{assets/resultats-graphique-7.png}
+\par\smallskip{\footnotesize\textit{Source : ANSD, calculs de l’auteure.}}
+\end{figure}
+\FloatBarrier
+
+\subsection{Évolution de la croissance en volume des services du capital au Sénégal}
+
+La croissance en volume des services du capital suit une tendance haussière malgré la légère baisse observée en 2018. Elle passe de 9,4 à 12,6\% entre 2016 et 2021, avec un taux moyen de 10,3\%. Entre 2016 et 2017, la croissance connaît une faible augmentation avant de baisser légèrement en 2018, atteignant ainsi un taux de 8,8\%. Elle rebondit en 2019 et augmente rapidement en 2020, puis sensiblement en 2021.
+
+Globalement, les services du capital augmentent plus rapidement que le stock net, ce qui est cohérent avec les résultats trouvés dans la littérature empirique, notamment par Schreyer \refbleue{2003} ainsi que par Oulton et Wallis \refbleue{2015}. De plus, la croissance en volume des services du capital suit la même tendance que celle du stock net sur toute la période considérée, sauf en 2018 où l’évolution des services du capital est ralentie tandis que celle du stock net poursuit sa progression.
+
+\begin{figure}[htbp]
+\centering
+\caption{Évolution de la croissance des services du capital entre 2015 et 2021 (en \%)}
+\label{fig:resultats-8}
+\includegraphics[width=\textwidth,height=0.50\textheight,keepaspectratio]{assets/resultats-graphique-8.png}
+\par\smallskip{\footnotesize\textit{Source : ANSD, calculs de l’auteure.}}
+\end{figure}
+\FloatBarrier
+
+\subsection{Évolution de la croissance en volume des services du capital par catégorie d’actifs}
+
+Les services du capital augmentent plus vite dans la catégorie des services spécialisés scientifiques et techniques, suivie de celles des droits de propriété intellectuelle, puis des matériels et équipements. La croissance est plus lente pour les catégories du bétail reproducteur et des animaux de trait, des bâtiments et travaux publics et des autres actifs fixes non classés ailleurs. Les courbes suivent les mêmes tendances que celles de la croissance du stock net de capital par catégorie d’actifs. Les variations de la croissance des services du capital sont ainsi principalement liées à celles du stock net, dans la mesure où les stocks nets sont eux-mêmes utilisés pour estimer les services du capital.
+
+La baisse en 2018 de la croissance des services du capital (et des stocks nets) au niveau des services spécialisés scientifiques et techniques, des droits de propriété intellectuelle et des matériels et équipements pourrait bien expliquer celle observée pour la croissance agrégée des services du capital (graphique~\ref{fig:resultats-8}). En effet, ces catégories susmentionnées représentent une part importante de la valeur totale des services du capital. Ainsi, leurs variations ont tendance à influencer fortement celle des services agrégés. De même, la forte variation de la croissance des services agrégés pourrait s’expliquer par le bond considérable qu’il y a eu en 2020 dans les catégories des services spécialisés scientifiques et techniques et des droits de propriété intellectuelle.
+
+\begin{figure}[htbp]
+\centering
+\caption{Évolution de la croissance en volume des services du capital par catégorie d’actifs entre 2016 et 2021 (en \%)}
+\label{fig:resultats-9}
+\includegraphics[width=\textwidth,height=0.50\textheight,keepaspectratio]{assets/resultats-graphique-9.png}
+\par\smallskip{\footnotesize\textit{Source : ANSD, calculs de l’auteure.}}
+\end{figure}
+\FloatBarrier
+
+\section{Analyse de la décomposition de la croissance économique et de la productivité multifactorielle}
+
+\subsection{Croissance de la productivité multifactorielle}
+
+Entre 2017 et 2021, la croissance de la productivité multifactorielle (PMF) est restée négative. Elle s’est dégradée, passant de $-1{,}52$\% en 2017 à $-5{,}63$\% en 2020, avant de s’améliorer très légèrement en 2021, à $-5{,}62$\%. La croissance de la PMF demeure donc négative sur l’ensemble de la période.
+
+Une croissance négative de la PMF signifie que les facteurs de production augmentent plus rapidement que le PIB. Elle peut traduire des inefficacités dans la combinaison du capital et du travail \refbleue{OCDE, 2017}. Ces inefficacités peuvent notamment être liées à une inadéquation des compétences \refbleue{Adalet McGowan et Andrews, 2015}, à une mauvaise allocation du capital \refbleue{Gopinath et al., 2015} ou à une diffusion plus lente des innovations dans l’économie \refbleue{Andrews, Criscuolo et Gal, 2015}. Une étude du FMI consacrée au Sénégal avant la crise de la Covid-19 souligne que l’informalité limite le passage des travailleurs d’activités moins productives vers des activités plus productives \refbleue{FMI, 2022}. Par ailleurs, l’OCDE relève que la faible productivité du travail, qui évolue peu, contribue à la faiblesse de la PMF au Sénégal \refbleue{OCDE, 2017}.
+
+Selon les études empiriques recensées par l’OCDE, la croissance de la PMF est généralement procyclique et suit de près celle du PIB \refbleue{OCDE, 2017}. Cette relation se vérifie jusqu’en 2020 dans les résultats présentés ici : le ralentissement de la croissance du PIB, de 7,4\% en 2017 à 1,3\% en 2020, s’accompagne d’une dégradation de la croissance de la PMF. En 2021, le PIB rebondit à 6,5\%, tandis que la PMF ne s’améliore que très légèrement et demeure fortement négative. En 2017, année où la croissance du PIB est la plus élevée sur la période, celle de la PMF est la moins négative ($-1{,}52$\%).
+
+\begin{figure}[htbp]
+\centering
+\caption{Croissance du PIB et de la PMF entre 2017 et 2021 (en \%)}
+\label{fig:croissance-pmf-2017-2021}
+\includegraphics[width=\textwidth,height=0.50\textheight,keepaspectratio]{assets/resultats-graphique-11.png}
+\par\smallskip{\footnotesize\textit{Source : ANSD, calculs de l’auteure.}}
+\end{figure}
+\FloatBarrier
+
+\subsection{Évolution des flux de services du travail}
+
+La croissance des flux de services du travail évolue globalement dans le même sens que celle du PIB. Elle passe de 5,31\% en 2016 à 8,61\% en 2017, puis diminue fortement jusqu’à 0,49\% en 2020. En 2021, elle rebondit nettement pour atteindre 12,90\%, son niveau le plus élevé sur la période étudiée.
+
+\begin{figure}[htbp]
+\centering
+\caption{Croissance des services du travail entre 2016 et 2021 (en \%)}
+\label{fig:croissance-services-travail}
+\includegraphics[width=0.9\textwidth,height=0.50\textheight,keepaspectratio]{assets/resultats-graphique-12.png}
+\par\smallskip{\footnotesize\textit{Source : ANSD, calculs de l’auteure.}}
+\end{figure}
+\FloatBarrier
+
+\subsection{Décomposition de la croissance économique entre 2017 et 2021}
+
+La décomposition de la croissance économique en contributions des différents facteurs de production montre que le capital constitue le principal moteur de la croissance, tandis que la PMF tend à la freiner.
+
+La contribution du capital évolue globalement comme la croissance des services du capital. Elle passe de 5,34 points de pourcentage en 2017 à 5,02 points en 2018, puis augmente en 2019 avant de s’accélérer en 2020 et en 2021, où elle atteint 6,85 points de pourcentage. Cette contribution est ainsi largement portée par l’évolution des services du capital. La contribution du travail diminue entre 2017 et 2020, passant de 3,32 à 0,21 point de pourcentage, une évolution qui suit celle des flux de services du travail. En 2021, dans le contexte de la reprise économique après la crise de la Covid-19, la contribution du travail rebondit et atteint 5,11 points de pourcentage, son niveau le plus élevé de la période.
+
+La contribution négative de la PMF réduit l’effet des facteurs de production sur la croissance. Ainsi, comme l’avait déjà relevé l’OCDE dans son examen multidimensionnel du Sénégal \refbleue{OCDE, 2017}, la croissance sénégalaise est extensive : elle repose sur l’accumulation des facteurs de production, en particulier du capital.
+
+\begin{figure}[htbp]
+\centering
+\caption{Contributions du capital, du travail et de la PMF, et croissance du PIB entre 2017 et 2021 (en \%)}
+\label{fig:decomposition-pmf-2017-2021}
+\includegraphics[width=\textwidth,height=0.50\textheight,keepaspectratio]{assets/resultats-graphique-13.png}
+\par\smallskip{\footnotesize\textit{Source : ANSD, calculs de l’auteure.}}
+\end{figure}
+\FloatBarrier
+
+\subsection{Limites de l’étude}
+
+Comme toute étude empirique, ce travail présente plusieurs limites qu’il convient de prendre en compte pour apprécier la portée des résultats.
+
+\begin{itemize}
+\item La période d’étude est relativement courte. Des séries plus longues de formation brute de capital fixe (FBCF) et d’heures travaillées permettraient d’analyser l’évolution à long terme des services du capital et de la PMF.
+
+\item Le terme de réévaluation du capital n’a pas été intégré à l’estimation des services du capital, en raison de l’instabilité de la série correspondante. La littérature recommande de lisser cette série avant de l’utiliser. Toutefois, ce traitement conduirait à écarter certaines années au début et à la fin de la période d’étude, ce qui serait particulièrement pénalisant compte tenu de la courte durée des séries. La prise en compte de la réévaluation rendrait néanmoins les mesures du capital plus conformes aux recommandations internationales.
+
+\item Les stocks d’actifs fixes sont calculés à l’aide de profils d’amortissement géométriques plutôt qu’à partir de la consommation de capital fixe (CCF). En comptabilité nationale, la CCF correspond à l’amortissement des actifs fixes et son utilisation aurait été plus cohérente avec les comptes nationaux.
+
+\item La consommation intermédiaire n’est pas incluse comme intrant dans la fonction de production, alors que les analyses contemporaines la prennent en compte aux côtés du capital et du travail.
+
+\item La croissance de la PMF est estimée à l’aide d’une approche par les indices plutôt que d’une approche économétrique. Cette dernière permettrait de ne pas imposer certaines hypothèses fortes, notamment les rendements d’échelle constants, le fonctionnement concurrentiel des marchés et la neutralité du progrès technique, dont la validité n’est pas garantie pour toutes les économies, en particulier pour le Sénégal. Selon l’OCDE, l’approche économétrique est également mieux adaptée aux études ponctuelles de la croissance de la productivité.
+\end{itemize}
+
+\subsection{Recommandations}
+
+À la lumière des résultats obtenus, plusieurs recommandations peuvent être formulées à l’intention de l’État et des entreprises privées.
+
+Une part importante de l’investissement sénégalais est consacrée à la construction, alors que les machines et équipements, les services de soutien aux activités extractives, la recherche-développement et la prospection minière fournissent davantage de services du capital. Tout en poursuivant le développement des infrastructures, il serait donc utile de renforcer les investissements dans ces actifs. L’accumulation de capital est importante au Sénégal, mais les investissements pourraient gagner en productivité et en efficacité.
+
+Par ailleurs, la croissance négative de la PMF observée sur la période étudiée freine la croissance économique. Des investissements efficaces dans le capital humain pourraient améliorer la qualité du travail et sa productivité, et contribuer ainsi à la croissance de la PMF et du PIB.
+
+Pour les travaux futurs, il serait souhaitable de mobiliser des séries plus longues, de préférence couvrant la période 2000--2025, et d’intégrer le terme de réévaluation du capital en améliorant son traitement. Il serait également pertinent d’étudier la décomposition de la croissance économique dans les différentes régions du Sénégal et dans chaque secteur d’activité (primaire, secondaire et tertiaire).
+\clearpage
+
+
+\rubrique{Conclusion}
+
+L’objectif de cette étude était d’estimer les services fournis par le capital fixe ainsi que la croissance de la productivité multifactorielle (PMF) au Sénégal. À partir des données de formation brute de capital fixe (FBCF) issues des comptes nationaux pour la période 2014--2021, des indices de volume des stocks nets et des services du capital, ainsi qu’un indice de croissance de la PMF, ont été construits selon la méthodologie de mesure du capital proposée par l’Organisation de coopération et de développement économiques (OCDE).
+
+Les résultats montrent que l’investissement sénégalais en capital fixe repose principalement sur la construction et les matériels et équipements, au détriment d’actifs tels que les droits de propriété intellectuelle et les services spécialisés scientifiques et techniques. À l’inverse, ces derniers présentent les indices de services du capital les plus élevés, tandis que les services fournis par les bâtiments restent relativement faibles. Par ailleurs, la croissance de la PMF au Sénégal est restée négative entre 2017 et 2021, l’accumulation des facteurs ayant progressé plus rapidement que le PIB. La décomposition de la croissance économique entre les contributions des différents facteurs de production et de la PMF montre que la croissance sénégalaise est extensive : elle repose davantage sur l’accumulation du capital que sur celle du travail, tandis que la contribution négative de la PMF tend à la freiner.
+
+Cette étude comporte toutefois certaines limites, notamment la courte période couverte par les séries de données, l’omission du terme de réévaluation du capital et le recours à une approche par les indices plutôt qu’à une approche économétrique. Pour les travaux futurs, il serait souhaitable de mobiliser des séries plus longues afin de faciliter le traitement de la réévaluation du capital et d’obtenir des estimations potentiellement plus précises. À l’intention de l’État, un renforcement des investissements en actifs fixes dans le secteur extractif — recherche-développement, prospection minière et services de soutien aux activités extractives — pourrait favoriser la croissance du PIB. Enfin, des investissements accrus dans le capital humain, notamment dans l’éducation et le développement des compétences, contribueraient à améliorer la qualité et la productivité du travail et, par conséquent, la PMF.
+
+\rubrique{Références bibliographiques}
+
+\begingroup
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\renewcommand{\labelenumi}{[\arabic{enumi}]}
+\begin{enumerate}
+\setlength{\itemsep}{0.6\baselineskip}
+\item Adalet McGowan, M., et Andrews, D. (2015). \textit{Labour Market Mismatch and Labour Productivity: Evidence from PIAAC Data}. OECD Economics Department Working Papers, n\textsuperscript{o}~1209. Paris~: Éditions OCDE.\par
+
+\item Agence nationale de la Statistique et de la Démographie (ANSD) (2017-2022). \textit{Comptes nationaux (base 2014)}. Dakar~: ANSD.\par
+
+\item Andrews, D., Criscuolo, C., et Gal, P. N. (2015). \textit{Frontier Firms, Technology Diffusion and Public Policy: Micro Evidence from OECD Countries}. OECD Productivity Working Papers, n\textsuperscript{o}~2. Paris~: Éditions OCDE.\par
+
+\item Baldwin, J. R., et Gu, W. (2007). \textit{La productivité multifactorielle au Canada~: une évaluation de diverses méthodes d’estimation des services de capital}. La revue canadienne de productivité, n\textsuperscript{o}~9, catalogue n\textsuperscript{o}~15-206-XIF. Ottawa~: Statistique Canada.\par
+
+\item Banque africaine de développement (BAD) (2024). \textit{Rapport pays 2024~: Sénégal. Impulser la transformation du Sénégal par la réforme de l’architecture financière mondiale}. BAD.\par
+
+\item Banque centrale européenne (BCE) (2006). «~Estimates of the Euro Area Capital Stock~». \textit{Monthly Bulletin}, mai, encadré~4.\par
+
+\item Bureau opérationnel de suivi du Plan Sénégal émergent (BOS) (s.d.). \textit{Bilan décennal (2014--2023) de la mise en œuvre des projets et réformes phares du Plan Sénégal émergent (PSE)}. République du Sénégal.\par
+
+\item Commission européenne, Fonds monétaire international, Organisation de coopération et de développement économiques, Nations unies et Banque mondiale (2025). \textit{Système de comptabilité nationale 2025 (SCN 2025)}.\par
+
+\item Diewert, W. E. (2004). \textit{Measuring Capital}. Discussion Paper n\textsuperscript{o}~04-10. Vancouver~: Department of Economics, University of British Columbia.\par
+
+\item Erumban, A. A., et Das, D. K. (2014). \textit{Role of Capital in India’s Economic Growth: Capital Stock versus Capital Services}. Communication à la 33\textsuperscript{e} conférence générale de l’International Association for Research in Income and Wealth (IARIW), Rotterdam, 24--30 août.\par
+
+\item Fisher, I. (1907). \textit{The Rate of Interest: Its Nature, Determination and Relation to Economic Phenomena}. New York~: The Macmillan Company.\par
+
+\item Fisher, I. (1930). \textit{The Theory of Interest: As Determined by Impatience to Spend Income and Opportunity to Invest It}. New York~: The Macmillan Company.\par
+
+\item Fonds monétaire international (FMI) (2022). \textit{Senegal: Selected Issues}. IMF Country Report n\textsuperscript{o}~22/9. Washington, D.C.~: FMI.\par
+
+\item Gopinath, G., Kalemli-Özcan, Ş., Karabarbounis, L., et Villegas-Sanchez, C. (2015). \textit{Capital Allocation and Productivity in South Europe}. NBER Working Paper n\textsuperscript{o}~21453. Cambridge, Massachusetts~: National Bureau of Economic Research.\par
+
+\item Hulten, C. R. (1991). «~The Measurement of Capital~». Dans E. R. Berndt et J. E. Triplett (dir.), \textit{Fifty Years of Economic Measurement: The Jubilee of the Conference on Research in Income and Wealth}, p.~119--158. Chicago~: University of Chicago Press.\par
+
+\item Jorgenson, D. W. (1963). «~Capital Theory and Investment Behavior~». \textit{The American Economic Review}, 53(2), p.~247--259.\par
+
+\item Jorgenson, D. W., et Griliches, Z. (1967). «~The Explanation of Productivity Change~». \textit{The Review of Economic Studies}, 34(3), p.~249--283.\par
+
+\item Marx, K. (1867). \textit{Le Capital. Critique de l’économie politique. Livre premier~: Le procès de production du capital}. Date de première publication. \textit{Édition française utilisée à préciser.}\par
+
+\item Mbaye, A. A., Gueye, F., Mbaye, M., et Dia, A. K. (2021). \textit{The Impact of COVID-19 on Industries without Smokestacks in Senegal}. Africa Growth Initiative Working Paper n\textsuperscript{o}~34. Washington, D.C.~: Brookings Institution.\par
+
+\item Nkama, A. H. G. (2007). \textit{Analyzing the Impact of ICT Investments on Productivity Growth in Developing Countries: Evidence from Cameroon}. Communication à la Conférence économique africaine, Addis-Abeba, 15--17 novembre.\par
+
+\item OCDE (Organisation de coopération et de développement économiques) (2001). \textit{La mesure du capital. Manuel de l’OCDE~: mesure des stocks de capital, de la consommation de capital fixe et des services du capital}. Paris~: Éditions OCDE.\par
+
+\item OCDE (2001). \textit{Mesurer la productivité. Manuel de l’OCDE~: mesurer la croissance de la productivité par secteur et pour l’ensemble de l’économie}. Paris~: Éditions OCDE.\par
+
+\item OCDE (2009). \textit{La mesure du capital. Manuel de l’OCDE 2009}. Deuxième édition. Paris~: Éditions OCDE.\par
+
+\item OCDE (2017). \textit{OECD Compendium of Productivity Indicators 2017}. Paris~: Éditions OCDE.\par
+
+\item OCDE (2017). \textit{Examen multidimensionnel du Sénégal. Volume~1~: Évaluation initiale}. Collection Les voies de développement. Paris~: Éditions OCDE.\par
+
+\item OCDE (2021). \textit{OECD Compendium of Productivity Indicators 2021}. Paris~: Éditions OCDE.\par
+
+\item Oulton, N. (2007). «~Ex Post Versus Ex Ante Measures of the User Cost of Capital~». \textit{Review of Income and Wealth}, 53(2), p.~295--317.\par
+
+\item Oulton, N., et Wallis, G. (2015). \textit{Integrated Estimates of Capital Stocks and Services for the United Kingdom: 1950--2013}. CEP Discussion Paper n\textsuperscript{o}~1342. Londres~: Centre for Economic Performance, London School of Economics.\par
+
+\item Rudolf, B., et Zurlinden, M. (2009). «~Measuring Capital Stocks and Capital Services in Switzerland~». \textit{Swiss Journal of Economics and Statistics}, 145(1), p.~61--105.\par
+
+\item Samuelson, P. A. (1947). \textit{Foundations of Economic Analysis}. Cambridge, Massachusetts~: Harvard University Press.\par
+
+\item Schreyer, P. (2004). «~Capital Stocks, Capital Services and Multi-Factor Productivity Measures~». \textit{OECD Economic Studies}, n\textsuperscript{o}~37, volume 2003/2, p.~163--184. \textit{Cité sous la date de 2003 dans le rapport.}\par
+
+\item Schreyer, P., Diewert, W. E., et Harrison, A. (2005). \textit{Cost of Capital Services and the National Accounts}. Document de discussion n\textsuperscript{o}~15 pour la mise à jour du SCN 1993, SNA/M1.05/04. Division de statistique des Nations unies.\par
+
+\item Smith, A. (1776). \textit{Recherches sur la nature et les causes de la richesse des nations}. Date de première publication~; titre original~: \textit{An Inquiry into the Nature and Causes of the Wealth of Nations}.\par
+
+\item Solow, R. M. (1957). «~Technical Change and the Aggregate Production Function~». \textit{The Review of Economics and Statistics}, 39(3), p.~312--320.\par
+
+\item Varian, H. R. (1992). \textit{Microeconomic Analysis}. Troisième édition. New York~: W. W. Norton \& Company.\par
+
+\item Varian, H. R. (2006). \textit{Intermediate Microeconomics: A Modern Approach}. Septième édition. New York~: W. W. Norton \& Company.\par
+
+\item Zhang, H., Wang, F., Fan, W., Jiang, H., Ling, R., et Liu, J. (2025). «~Estimation of Capital Stock and the Elasticity of Capital-Labor Substitution in Provincial Industries in China~». \textit{International Review of Economics \& Finance}, 102, article~104407.\par
+\end{enumerate}
+\endgroup
+
+\rubrique{Table des matières}
+\begingroup
+\etocsetnexttocdepth{subsection}
+\etocsettocstyle{}{}
+\tableofcontents
+\endgroup
+
+\end{document}
